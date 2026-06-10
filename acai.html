@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Açaí - J&S Açaiteria</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
+font-family:'Montserrat',sans-serif;
+color:white;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+}
+
+h1,h2{
+text-align:center;
+margin:20px 0;
+}
+
+.bloco{
+background:rgba(255,255,255,.08);
+padding:15px;
+border-radius:15px;
+margin-bottom:20px;
+}
+
+.botao{
+width:100%;
+padding:18px;
+border:none;
+border-radius:12px;
+font-size:18px;
+cursor:pointer;
+background:white;
+color:#5B178A;
+font-weight:600;
+margin-top:20px;
+}
+
+#resumo{
+display:none;
+background:white;
+color:#333;
+padding:20px;
+border-radius:15px;
+margin-top:20px;
+}
+
+input[type="checkbox"],
+input[type="radio"]{
+width:26px;
+height:26px;
+margin-right:12px;
+cursor:pointer;
+accent-color:#00ff4c;
+}
+
+label{
+display:flex;
+align-items:center;
+padding:10px;
+margin:8px 0;
+border:1px solid rgba(255,255,255,.2);
+border-radius:10px;
+cursor:pointer;
+transition:0.2s;
+}
+
+label:has(input:checked){
+border:2px solid #00ff4c;
+background:rgba(0,255,76,0.08);
+}
+
+.ticket{
+background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
+padding:20px;
+border-radius:20px;
+color:white;
+margin-top:20px;
+}
+
+.card{
+background:white;
+color:#333;
+border-radius:15px;
+padding:20px;
+margin-top:15px;
+}
+
+.topo{text-align:center;}
+
+.total{
+text-align:center;
+margin-top:15px;
+font-size:22px;
+color:#5B178A;
+}
+
+.verde{background:#25D366;color:white;margin-top:15px;}
+.roxo{background:#6A0DAD;color:white;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🍧 MONTE SEU AÇAÍ</h1>
+
+<div class="bloco">
+<h2>TAMANHOS</h2>
+
+<label><input type="radio" name="tamanho" value="300ml" data-preco="8"> 300ml - R$8</label>
+<label><input type="radio" name="tamanho" value="400ml" data-preco="15"> 400ml - R$15</label>
+<label><input type="radio" name="tamanho" value="500ml" data-preco="20"> 500ml - R$20</label>
+</div>
+
+<div class="bloco">
+<h2>BASE DO AÇAÍ</h2>
+<label><input type="radio" name="base" value="Açaí Tradicional"> Tradicional</label>
+</div>
+
+<div class="bloco">
+<h2>CREMES</h2>
+<label><input type="checkbox" class="ingrediente" value="Maracujá"> Creme de Maracujá</label>
+<label><input type="checkbox" class="ingrediente" value="Cupuaçu"> Creme de Cupuaçu</label>
+<label><input type="checkbox" class="ingrediente" value="Ninho"> Creme de Ninho</label>
+<label><input type="checkbox" class="ingrediente" value="Pistache"> Creme de Pistache</label>
+</div>
+
+<div class="bloco">
+<h2>FRUTAS</h2>
+<label><input type="checkbox" class="ingrediente" value="Banana"> Banana</label>
+<label><input type="checkbox" class="ingrediente" value="Morango"> Morango</label>
+<label><input type="checkbox" class="ingrediente" value="Kiwi"> Kiwi</label>
+</div>
+
+<div class="bloco">
+<h2>SORVETES</h2>
+<label><input type="checkbox" class="ingrediente" value="Chocolate"> Chocolate</label>
+<label><input type="checkbox" class="ingrediente" value="Morango Sorvete"> Morango</label>
+<label><input type="checkbox" class="ingrediente" value="Flocos"> Flocos</label>
+<label><input type="checkbox" class="ingrediente" value="Nutella Sorvete"> Nutella</label>
+<label><input type="checkbox" class="ingrediente" value="Óreo"> Óreo</label>
+</div>
+
+<div class="bloco">
+<h2>COMPLEMENTOS (máx 6)</h2>
+<label><input type="checkbox" class="ingrediente" value="Granola"> Granola</label>
+<label><input type="checkbox" class="ingrediente" value="Sucrilhos"> Sucrilhos</label>
+<label><input type="checkbox" class="ingrediente" value="MMs"> MMs</label>
+<label><input type="checkbox" class="ingrediente" value="Marshmallow"> Marshmallow</label>
+<label><input type="checkbox" class="ingrediente" value="Paçoquita"> Paçoquita</label>
+<label><input type="checkbox" class="ingrediente" value="Leite em pó"> Leite em pó</label>
+<label><input type="checkbox" class="ingrediente" value="Creme de avelã"> Creme de avelã</label>
+</div>
+
+<button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
+
+<div id="ticketArea" style="display:none;">
+
+<div id="ticket" class="ticket">
+
+<div style="text-align:center;margin-bottom:15px;">
+<img src="logo.jpg" style="width:130px;border-radius:15px;">
+</div>
+
+<div class="topo">
+<h2>🍧 PEDIDO FINALIZADO!</h2>
+</div>
+
+<div class="card">
+<h3>J&S AÇAITERIA</h3>
+<div id="conteudoTicket"></div>
+<h2 class="total" id="totalTicket"></h2>
+</div>
+
+</div>
+
+<button class="botao verde" onclick="enviarWhatsApp()">📲 WhatsApp</button>
+<button class="botao roxo" onclick="baixarImagem()">⬇️ Baixar imagem</button>
+
+</div>
+
+</div>
+
+<script>
+let imagemPedido="";
+
+document.querySelectorAll('.ingrediente').forEach(item=>{
+item.addEventListener('change',function(){
+let marcados=document.querySelectorAll('.ingrediente:checked');
+if(marcados.length>6){
+this.checked=false;
+alert('Máximo 6 complementos.');
+}
+});
+});
+
+function finalizarPedido(){
+
+let tamanho=document.querySelector('input[name="tamanho"]:checked');
+if(!tamanho){alert("Escolha o tamanho");return;}
+
+let base=document.querySelector('input[name="base"]:checked');
+if(!base){alert("Escolha a base");return;}
+
+let ingredientes=[...document.querySelectorAll('.ingrediente:checked')].map(i=>i.value);
+
+let total=parseFloat(tamanho.dataset.preco);
+
+document.getElementById("conteudoTicket").innerHTML=`
+<p><b>Tamanho:</b> ${tamanho.value}</p>
+<p><b>Base:</b> ${base.value}</p>
+<p><b>Complementos:</b> ${ingredientes.join(", ")}</p>
+`;
+
+document.getElementById("totalTicket").innerText="TOTAL: R$ "+total.toFixed(2);
+
+document.getElementById("ticketArea").style.display="block";
+
+setTimeout(()=>{
+html2canvas(document.getElementById("ticket")).then(canvas=>{
+imagemPedido=canvas.toDataURL("image/png");
+});
+},500);
+}
+
+function enviarWhatsApp(){
+let texto="🍧 NOVO PEDIDO AÇAÍ%0A%0A";
+texto+=document.getElementById("conteudoTicket").innerText;
+texto+="%0A%0A"+document.getElementById("totalTicket").innerText;
+
+window.open("https://wa.me/5588999031455?text="+texto,"_blank");
+}
+
+function baixarImagem(){
+let link=document.createElement("a");
+link.href=imagemPedido;
+link.download="pedido-acai.png";
+link.click();
+}
+</script>
+
+</body>
+</html>
