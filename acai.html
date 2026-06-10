@@ -53,15 +53,6 @@ font-weight:600;
 margin-top:20px;
 }
 
-#resumo{
-display:none;
-background:white;
-color:#333;
-padding:20px;
-border-radius:15px;
-margin-top:20px;
-}
-
 input[type="checkbox"],
 input[type="radio"]{
 width:26px;
@@ -125,7 +116,6 @@ color:#5B178A;
 
 <div class="bloco">
 <h2>TAMANHOS</h2>
-
 <label><input type="radio" name="tamanho" value="300ml" data-preco="8"> 300ml - R$8</label>
 <label><input type="radio" name="tamanho" value="400ml" data-preco="15"> 400ml - R$15</label>
 <label><input type="radio" name="tamanho" value="500ml" data-preco="20"> 500ml - R$20</label>
@@ -138,37 +128,42 @@ color:#5B178A;
 
 <div class="bloco">
 <h2>CREMES</h2>
-<label><input type="checkbox" class="ingrediente" value="Maracujá"> Creme de Maracujá</label>
-<label><input type="checkbox" class="ingrediente" value="Cupuaçu"> Creme de Cupuaçu</label>
-<label><input type="checkbox" class="ingrediente" value="Ninho"> Creme de Ninho</label>
-<label><input type="checkbox" class="ingrediente" value="Pistache"> Creme de Pistache</label>
+<label><input type="checkbox" value="Maracujá"> Creme de Maracujá</label>
+<label><input type="checkbox" value="Cupuaçu"> Creme de Cupuaçu</label>
+<label><input type="checkbox" value="Ninho"> Creme de Ninho</label>
+<label><input type="checkbox" value="Pistache"> Creme de Pistache</label>
 </div>
 
 <div class="bloco">
 <h2>FRUTAS</h2>
-<label><input type="checkbox" class="ingrediente" value="Banana"> Banana</label>
-<label><input type="checkbox" class="ingrediente" value="Morango"> Morango</label>
-<label><input type="checkbox" class="ingrediente" value="Kiwi"> Kiwi</label>
+<label><input type="checkbox" value="Banana"> Banana</label>
+<label><input type="checkbox" value="Morango"> Morango</label>
+<label><input type="checkbox" value="Kiwi"> Kiwi</label>
 </div>
 
 <div class="bloco">
-<h2>SORVETES</h2>
-<label><input type="checkbox" class="ingrediente" value="Chocolate"> Chocolate</label>
-<label><input type="checkbox" class="ingrediente" value="Morango Sorvete"> Morango</label>
-<label><input type="checkbox" class="ingrediente" value="Flocos"> Flocos</label>
-<label><input type="checkbox" class="ingrediente" value="Nutella Sorvete"> Nutella</label>
-<label><input type="checkbox" class="ingrediente" value="Óreo"> Óreo</label>
-</div>
+<h2>COMPLEMENTOS PREMIUM</h2>
 
-<div class="bloco">
-<h2>COMPLEMENTOS (máx 6)</h2>
-<label><input type="checkbox" class="ingrediente" value="Granola"> Granola</label>
-<label><input type="checkbox" class="ingrediente" value="Sucrilhos"> Sucrilhos</label>
-<label><input type="checkbox" class="ingrediente" value="MMs"> MMs</label>
-<label><input type="checkbox" class="ingrediente" value="Marshmallow"> Marshmallow</label>
-<label><input type="checkbox" class="ingrediente" value="Paçoquita"> Paçoquita</label>
-<label><input type="checkbox" class="ingrediente" value="Leite em pó"> Leite em pó</label>
-<label><input type="checkbox" class="ingrediente" value="Creme de avelã"> Creme de avelã</label>
+<label><input type="checkbox" value="Chocowafer preto"> Chocowafer preto</label>
+<label><input type="checkbox" value="Chocowafer branco"> Chocowafer branco</label>
+<label><input type="checkbox" value="Tubetes"> Tubetes</label>
+<label><input type="checkbox" value="Chocoball"> Chocoball</label>
+<label><input type="checkbox" value="Jujuba"> Jujuba</label>
+<label><input type="checkbox" value="Granola tradicional"> Granola tradicional</label>
+<label><input type="checkbox" value="Sucrilhos"> Sucrilhos</label>
+<label><input type="checkbox" value="MMs pequeno"> MMs pequeno</label>
+<label><input type="checkbox" value="Marshmallow"> Marshmallow</label>
+<label><input type="checkbox" value="Jujuba azeda"> Jujuba azeda</label>
+<label><input type="checkbox" value="Castanha"> Castanha</label>
+<label><input type="checkbox" value="Paçoquita"> Paçoquita</label>
+<label><input type="checkbox" value="Leite em pó"> Leite em pó</label>
+<label><input type="checkbox" value="Creme de avelã"> Creme de avelã</label>
+<label><input type="checkbox" value="Creme de cookies branco"> Creme de cookies branco</label>
+<label><input type="checkbox" value="Castanha caramelizada"> Castanha caramelizada</label>
+<label><input type="checkbox" value="Amendoim"> Amendoim</label>
+<label><input type="checkbox" value="Gotas de chocolate"> Gotas de chocolate</label>
+<label><input type="checkbox" value="Cereja"> Cereja</label>
+
 </div>
 
 <button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
@@ -203,16 +198,6 @@ color:#5B178A;
 <script>
 let imagemPedido="";
 
-document.querySelectorAll('.ingrediente').forEach(item=>{
-item.addEventListener('change',function(){
-let marcados=document.querySelectorAll('.ingrediente:checked');
-if(marcados.length>6){
-this.checked=false;
-alert('Máximo 6 complementos.');
-}
-});
-});
-
 function finalizarPedido(){
 
 let tamanho=document.querySelector('input[name="tamanho"]:checked');
@@ -221,14 +206,14 @@ if(!tamanho){alert("Escolha o tamanho");return;}
 let base=document.querySelector('input[name="base"]:checked');
 if(!base){alert("Escolha a base");return;}
 
-let ingredientes=[...document.querySelectorAll('.ingrediente:checked')].map(i=>i.value);
+let ingredientes=[...document.querySelectorAll('input[type="checkbox"]:checked')].map(i=>i.value);
 
 let total=parseFloat(tamanho.dataset.preco);
 
 document.getElementById("conteudoTicket").innerHTML=`
 <p><b>Tamanho:</b> ${tamanho.value}</p>
 <p><b>Base:</b> ${base.value}</p>
-<p><b>Complementos:</b> ${ingredientes.join(", ")}</p>
+<p><b>Itens:</b> ${ingredientes.join(", ")}</p>
 `;
 
 document.getElementById("totalTicket").innerText="TOTAL: R$ "+total.toFixed(2);
