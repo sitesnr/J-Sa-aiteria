@@ -87,46 +87,43 @@ border:2px solid #00ff4c;
 background:rgba(0,255,76,0.08);
 }
 
-/* ===== TICKET ===== */
 .ticket{
-  background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
-  padding:20px;
-  border-radius:20px;
-  color:white;
-  margin-top:20px;
+background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
+padding:20px;
+border-radius:20px;
+color:white;
+margin-top:20px;
 }
 
 .card{
-  background:white;
-  color:#333;
-  border-radius:15px;
-  padding:20px;
-  margin-top:15px;
+background:white;
+color:#333;
+border-radius:15px;
+padding:20px;
+margin-top:15px;
 }
 
-.topo{
-  text-align:center;
-}
+.topo{text-align:center;}
 
 .total{
-  text-align:center;
-  margin-top:15px;
-  font-size:22px;
-  color:#5B178A;
+text-align:center;
+margin-top:15px;
+font-size:22px;
+color:#5B178A;
 }
 
 .verde{
-  background:#25D366;
-  color:white;
-  margin-top:15px;
+background:#25D366;
+color:white;
+margin-top:15px;
 }
 
 .roxo{
-  background:#6A0DAD;
-  color:white;
+background:#6A0DAD;
+color:white;
 }
 
-/* ===== CARRINHO ===== */
+/* 🛒 CARRINHO GLOBAL */
 #carrinhoBox{
 background:rgba(255,255,255,.12);
 padding:15px;
@@ -211,11 +208,11 @@ cursor:pointer;
 
 <div class="bloco">
 <h2>PASSO 6 - FINALIZAÇÃO</h2>
-<label><input type="checkbox" value="Cheiro Verde" class="finalizacao"> Cheiro Verde</label>
-<label><input type="checkbox" value="Manjericão" class="finalizacao"> Manjericão</label>
-<label><input type="checkbox" value="Orégano" class="finalizacao"> Orégano</label>
-<label><input type="checkbox" value="Queijo Ralado" class="finalizacao"> Queijo Ralado</label>
-<label><input type="checkbox" value="Pimenta Calabresa" class="finalizacao"> Pimenta Calabresa</label>
+<label><input type="checkbox" class="finalizacao" value="Cheiro Verde"> Cheiro Verde</label>
+<label><input type="checkbox" class="finalizacao" value="Manjericão"> Manjericão</label>
+<label><input type="checkbox" class="finalizacao" value="Orégano"> Orégano</label>
+<label><input type="checkbox" class="finalizacao" value="Queijo Ralado"> Queijo Ralado</label>
+<label><input type="checkbox" class="finalizacao" value="Pimenta Calabresa"> Pimenta Calabresa</label>
 </div>
 
 <div class="bloco">
@@ -224,14 +221,11 @@ cursor:pointer;
 <label><input type="radio" name="turbinar" value="Não" checked> Não</label>
 </div>
 
-<!-- 🛒 CARRINHO ADICIONADO -->
+<!-- 🛒 CARRINHO -->
 <div class="bloco">
 <h2>🛒 CARRINHO</h2>
 <div id="carrinho"></div>
-
-<button class="botao" type="button" onclick="adicionarCarrinho()">
-➕ ADICIONAR AO CARRINHO
-</button>
+<button class="botao" type="button" onclick="adicionarCarrinho()">➕ ADICIONAR AO CARRINHO</button>
 </div>
 
 <button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
@@ -239,11 +233,10 @@ cursor:pointer;
 <div id="resumo"></div>
 
 <div id="ticketArea" style="display:none;">
-
   <div id="ticket" class="ticket">
-<div style="text-align:center; margin-bottom:15px;">
-  <img src="logo.jpg" style="width:130px; border-radius:15px;">
-</div>
+    <div style="text-align:center;margin-bottom:15px;">
+      <img src="logo.jpg" style="width:130px;border-radius:15px;">
+    </div>
 
     <div class="topo">
       <h2>🍝 PEDIDO FINALIZADO!</h2>
@@ -256,21 +249,31 @@ cursor:pointer;
       <div id="conteudoTicket"></div>
       <h2 class="total" id="totalTicket"></h2>
     </div>
-
   </div>
 
   <button class="botao verde" onclick="enviarWhatsApp()">📲 Enviar no WhatsApp</button>
   <button class="botao roxo" onclick="baixarImagem()">⬇️ Baixar imagem do pedido</button>
-
 </div>
 
 </div>
 
 <script>
 
+/* ===== CARRINHO GLOBAL (ADICIONADO) ===== */
+function getCarrinho(){
+return JSON.parse(localStorage.getItem("carrinho")) || [];
+}
+
+function salvarCarrinho(c){
+localStorage.setItem("carrinho", JSON.stringify(c));
+}
+
+/* ===== SEU CÓDIGO ORIGINAL ===== */
+
 let imagemPedido = "";
 let carrinho = [];
 
+/* ingredientes limite */
 document.querySelectorAll('.ingrediente').forEach(item=>{
 item.addEventListener('change',function(){
 let marcados=document.querySelectorAll('.ingrediente:checked');
@@ -291,6 +294,7 @@ alert('Você pode escolher no máximo 3 molhos.');
 });
 });
 
+/* ADICIONAR CARRINHO (GLOBAL) */
 function adicionarCarrinho(){
 
 let quantidade=document.querySelector('input[name="quantidade"]:checked');
@@ -306,9 +310,12 @@ let ingredientes=[...document.querySelectorAll('.ingrediente:checked')].map(i=>i
 let molhos=[...document.querySelectorAll('.molho:checked')].map(i=>i.value);
 let finalizacao=[...document.querySelectorAll('.finalizacao:checked')].map(i=>i.value);
 
-let item = `${quantidade.value} - ${massa.value} - Ingredientes: ${ingredientes.join(", ")} - Molhos: ${molhos.join(", ")} - Finalização: ${finalizacao.join(", ")} - Camarão: ${camarao}`;
+let item = `🍝 Massas - ${quantidade.value} - ${massa.value} - Ingredientes: ${ingredientes.join(", ")} - Molhos: ${molhos.join(", ")} - Finalização: ${finalizacao.join(", ")} - Camarão: ${camarao}`;
 
-carrinho.push(item);
+let carrinhoGlobal = getCarrinho();
+carrinhoGlobal.push(item);
+salvarCarrinho(carrinhoGlobal);
+
 renderCarrinho();
 
 alert("Adicionado ao carrinho!");
@@ -318,28 +325,33 @@ function renderCarrinho(){
 
 let div=document.getElementById("carrinho");
 
-if(carrinho.length===0){
+let carrinhoGlobal = getCarrinho();
+
+if(carrinhoGlobal.length===0){
 div.innerHTML="Carrinho vazio";
 return;
 }
 
 div.innerHTML="";
 
-carrinho.forEach((item,index)=>{
+carrinhoGlobal.forEach((item,index)=>{
 div.innerHTML+=`
 <div style="display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid rgba(255,255,255,.2);">
 <span>${item}</span>
-<button onclick="removerItem(${index})" style="background:red;color:white;border:none;border-radius:8px;padding:5px;">X</button>
+<button onclick="removerItem(${index})" class="remover">X</button>
 </div>
 `;
 });
 }
 
 function removerItem(index){
-carrinho.splice(index,1);
+let carrinhoGlobal = getCarrinho();
+carrinhoGlobal.splice(index,1);
+salvarCarrinho(carrinhoGlobal);
 renderCarrinho();
 }
 
+/* FINALIZAR PEDIDO (SEM ALTERAÇÃO) */
 function finalizarPedido(){
 
 let quantidade=document.querySelector('input[name="quantidade"]:checked');
@@ -389,58 +401,60 @@ document.getElementById("totalTicket").innerText =
 document.getElementById("ticketArea").style.display="block";
 
 setTimeout(()=>{
-  html2canvas(document.getElementById("ticket")).then(canvas=>{
-    imagemPedido = canvas.toDataURL("image/png");
-  });
+html2canvas(document.getElementById("ticket")).then(canvas=>{
+imagemPedido = canvas.toDataURL("image/png");
+});
 },500);
 
 window.scrollTo(0,document.body.scrollHeight);
 }
 
 function enviarWhatsApp(){
-
 let texto = "🍝 NOVO PEDIDO J&S AÇAITERIA%0A%0A";
 texto += document.getElementById("conteudoTicket").innerText;
 texto += "%0A%0A" + document.getElementById("totalTicket").innerText;
 
-let numero = "5588999031455";
-
-window.open(`https://wa.me/${numero}?text=${texto}`,"_blank");
+window.open("https://wa.me/5588999031455?text="+texto,"_blank");
 }
 
 function baixarImagem(){
-let link = document.createElement("a");
-link.href = imagemPedido;
-link.download = "pedido-js-acaiteria.png";
+let link=document.createElement("a");
+link.href=imagemPedido;
+link.download="pedido-massas.png";
 link.click();
 }
 
 function renderCarrinho(){
 let div=document.getElementById("carrinho");
 
-if(carrinho.length===0){
+let carrinhoGlobal = getCarrinho();
+
+if(carrinhoGlobal.length===0){
 div.innerHTML="Carrinho vazio";
 return;
 }
 
 div.innerHTML="";
 
-carrinho.forEach((item,index)=>{
+carrinhoGlobal.forEach((item,index)=>{
 div.innerHTML+=`
 <div style="display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid rgba(255,255,255,.2);">
 <span>${item}</span>
-<button onclick="removerItem(${index})" style="background:red;color:white;border:none;border-radius:8px;padding:5px;">X</button>
+<button onclick="removerItem(${index})" class="remover">X</button>
 </div>
 `;
 });
 }
 
 function removerItem(index){
-carrinho.splice(index,1);
+let carrinhoGlobal = getCarrinho();
+carrinhoGlobal.splice(index,1);
+salvarCarrinho(carrinhoGlobal);
 renderCarrinho();
 }
 
 </script>
 
 </body>
+</html></body>
 </html>
