@@ -6,15 +6,10 @@
 <title>Açaí - J&S Açaiteria</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
 background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
@@ -23,15 +18,9 @@ color:white;
 padding:20px;
 }
 
-.container{
-max-width:700px;
-margin:auto;
-}
+.container{max-width:700px;margin:auto;}
 
-h1,h2{
-text-align:center;
-margin:20px 0;
-}
+h1,h2{text-align:center;margin:20px 0;}
 
 .bloco{
 background:rgba(255,255,255,.08);
@@ -55,10 +44,8 @@ margin-top:20px;
 
 input[type="checkbox"],
 input[type="radio"]{
-width:26px;
-height:26px;
+width:26px;height:26px;
 margin-right:12px;
-cursor:pointer;
 accent-color:#00ff4c;
 }
 
@@ -78,35 +65,7 @@ border:2px solid #00ff4c;
 background:rgba(0,255,76,0.08);
 }
 
-.ticket{
-background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
-padding:20px;
-border-radius:20px;
-color:white;
-margin-top:20px;
-}
-
-.card{
-background:white;
-color:#333;
-border-radius:15px;
-padding:20px;
-margin-top:15px;
-}
-
-.topo{text-align:center;}
-
-.total{
-text-align:center;
-margin-top:15px;
-font-size:22px;
-color:#5B178A;
-}
-
-.verde{background:#25D366;color:white;margin-top:15px;}
-.roxo{background:#6A0DAD;color:white;}
-
-/* 🛒 CARRINHO GLOBAL */
+/* CARRINHO */
 #carrinhoBox{
 background:rgba(255,255,255,.12);
 padding:15px;
@@ -130,6 +89,24 @@ border-radius:8px;
 padding:5px 10px;
 cursor:pointer;
 }
+
+/* TICKET */
+.ticket{
+background:white;
+color:#333;
+padding:20px;
+border-radius:15px;
+}
+
+.total{
+text-align:center;
+margin-top:15px;
+font-size:22px;
+color:#5B178A;
+}
+
+.verde{background:#25D366;color:white;}
+.roxo{background:#6A0DAD;color:white;}
 </style>
 </head>
 
@@ -147,44 +124,25 @@ cursor:pointer;
 </div>
 
 <div class="bloco">
-<h2>BASE DO AÇAÍ</h2>
-<label><input type="radio" name="base" value="Açaí Tradicional"> Tradicional</label>
+<h2>BASE</h2>
+<label><input type="radio" name="base" value="Tradicional"> Tradicional</label>
 </div>
 
 <div class="bloco">
-<h2>CREMES E COMPLEMENTOS</h2>
+<h2>COMPLEMENTOS</h2>
 
-<label><input type="checkbox" value="Maracujá"> Creme de Maracujá</label>
-<label><input type="checkbox" value="Cupuaçu"> Creme de Cupuaçu</label>
-<label><input type="checkbox" value="Ninho"> Creme de Ninho</label>
-<label><input type="checkbox" value="Pistache"> Creme de Pistache</label>
-
-<label><input type="checkbox" value="Banana"> Banana</label>
+<label><input type="checkbox" value="Ninho"> Ninho</label>
 <label><input type="checkbox" value="Morango"> Morango</label>
-<label><input type="checkbox" value="Kiwi"> Kiwi</label>
-
-<label><input type="checkbox" value="Chocowafer preto"> Chocowafer preto</label>
-<label><input type="checkbox" value="Chocowafer branco"> Chocowafer branco</label>
-<label><input type="checkbox" value="Tubetes"> Tubetes</label>
-<label><input type="checkbox" value="Chocoball"> Chocoball</label>
-<label><input type="checkbox" value="Jujuba"> Jujuba</label>
-<label><input type="checkbox" value="Granola tradicional"> Granola tradicional</label>
-<label><input type="checkbox" value="Sucrilhos"> Sucrilhos</label>
-<label><input type="checkbox" value="MMs pequeno"> MMs pequeno</label>
-<label><input type="checkbox" value="Marshmallow"> Marshmallow</label>
-<label><input type="checkbox" value="Paçoquita"> Paçoquita</label>
+<label><input type="checkbox" value="Banana"> Banana</label>
+<label><input type="checkbox" value="Granola"> Granola</label>
 <label><input type="checkbox" value="Leite em pó"> Leite em pó</label>
-<label><input type="checkbox" value="Creme de avelã"> Creme de avelã</label>
-<label><input type="checkbox" value="Gotas de chocolate"> Gotas de chocolate</label>
 
 </div>
 
-<!-- 🛒 BOTÃO -->
 <button class="botao" onclick="adicionarCarrinho()">➕ ADICIONAR AO CARRINHO</button>
 
-<!-- 🛒 CARRINHO -->
 <div id="carrinhoBox">
-<h2>🛒 CARRINHO GLOBAL</h2>
+<h2>🛒 CARRINHO</h2>
 <div id="carrinho"></div>
 </div>
 
@@ -192,14 +150,10 @@ cursor:pointer;
 
 <div id="ticketArea" style="display:none;">
 
-<div class="ticket">
-<h2 style="text-align:center;">🍧 PEDIDO FINALIZADO</h2>
-
-<div class="card">
+<div class="ticket" id="ticket">
+<h2>🍧 PEDIDO FINALIZADO</h2>
 <div id="conteudoTicket"></div>
 <h2 class="total" id="totalTicket"></h2>
-</div>
-
 </div>
 
 <button class="botao verde" onclick="enviarWhatsApp()">📲 WhatsApp</button>
@@ -211,7 +165,6 @@ cursor:pointer;
 
 <script>
 
-/* ===== CARRINHO GLOBAL ===== */
 function getCarrinho(){
 return JSON.parse(localStorage.getItem("carrinho")) || [];
 }
@@ -223,59 +176,57 @@ localStorage.setItem("carrinho", JSON.stringify(c));
 function adicionarCarrinho(){
 
 let tamanho=document.querySelector('input[name="tamanho"]:checked');
-if(!tamanho){alert("Escolha o tamanho");return;}
-
 let base=document.querySelector('input[name="base"]:checked');
-if(!base){alert("Escolha a base");return;}
+
+if(!tamanho || !base){
+alert("Escolha tamanho e base");
+return;
+}
 
 let ingredientes=[...document.querySelectorAll('input[type="checkbox"]:checked')].map(i=>i.value);
 
-let item = `🍧 Açaí - ${tamanho.value} - ${base.value} - ${ingredientes.join(", ")}`;
+let item = `🍧 Açaí ${tamanho.value} - ${base.value} - ${ingredientes.join(", ")}`;
 
-let carrinho = getCarrinho();
+let carrinho=getCarrinho();
 carrinho.push(item);
 salvarCarrinho(carrinho);
 
 renderCarrinho();
-alert("Adicionado ao carrinho!");
+alert("Adicionado!");
 }
 
 function renderCarrinho(){
-
-let carrinho = getCarrinho();
-let div = document.getElementById("carrinho");
+let carrinho=getCarrinho();
+let div=document.getElementById("carrinho");
 
 if(carrinho.length===0){
-div.innerHTML="Carrinho vazio";
+div.innerHTML="Vazio";
 return;
 }
 
 div.innerHTML="";
 
-carrinho.forEach((item,index)=>{
+carrinho.forEach((item,i)=>{
 div.innerHTML+=`
 <div class="itemCarrinho">
 <span>${item}</span>
-<button class="remover" onclick="removerItem(${index})">X</button>
+<button class="remover" onclick="remover(${i})">X</button>
 </div>
 `;
 });
 }
 
-function removerItem(index){
-let carrinho = getCarrinho();
-carrinho.splice(index,1);
-salvarCarrinho(carrinho);
+function remover(i){
+let c=getCarrinho();
+c.splice(i,1);
+salvarCarrinho(c);
 renderCarrinho();
 }
 
-window.onload = renderCarrinho;
-
-/* ===== FINALIZAR PEDIDO (MOSTRA TODOS OS PRODUTOS DO CARRINHO GLOBAL) ===== */
+window.onload=renderCarrinho;
 
 function finalizarPedido(){
-
-let carrinho = getCarrinho();
+let carrinho=getCarrinho();
 
 if(carrinho.length===0){
 alert("Carrinho vazio");
@@ -283,34 +234,36 @@ return;
 }
 
 document.getElementById("conteudoTicket").innerHTML =
-carrinho.map(i => "• " + i).join("<br>");
+carrinho.map(i=>"• "+i).join("<br>");
 
 document.getElementById("totalTicket").innerText =
-"TOTAL DE ITENS: " + carrinho.length;
+"Total: "+carrinho.length+" itens";
 
 document.getElementById("ticketArea").style.display="block";
 }
 
 function enviarWhatsApp(){
-let carrinho = getCarrinho();
+let carrinho=getCarrinho();
 
-let texto = "🍧 NOVO PEDIDO AÇAÍ%0A%0A";
-texto += carrinho.join("%0A");
-texto += "%0A%0ATotal: " + carrinho.length + " itens";
+let texto="🍧 NOVO PEDIDO%0A%0A";
+texto+=carrinho.join("%0A");
+texto+="%0A%0ATotal: "+carrinho.length;
 
-window.open("https://wa.me/5588999031455?text=" + texto,"_blank");
+window.open("https://wa.me/5588999031455?text="+texto,"_blank");
 }
 
+/* 📸 DOWNLOAD DA IMAGEM CORRIGIDO */
 function baixarImagem(){
+html2canvas(document.querySelector("#ticket")).then(canvas=>{
 let link=document.createElement("a");
-link.href=imagemPedido;
 link.download="pedido-acai.png";
+link.href=canvas.toDataURL();
 link.click();
+});
 }
 
 </script>
 
 </body>
-</html>
-</body>
+</html></body>
 </html></html></html>
