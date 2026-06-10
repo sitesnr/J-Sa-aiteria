@@ -38,11 +38,6 @@ border-radius:15px;
 margin-bottom:20px;
 }
 
-label{
-display:block;
-margin:8px 0;
-}
-
 .botao{
 width:100%;
 padding:18px;
@@ -64,31 +59,31 @@ padding:20px;
 border-radius:15px;
 margin-top:20px;
 }
+
 input[type="checkbox"],
 input[type="radio"]{
-  width:26px;
-  height:26px;
-  margin-right:12px;
-  cursor:pointer;
-  accent-color:#00ff4c;
+width:26px;
+height:26px;
+margin-right:12px;
+cursor:pointer;
+accent-color:#00ff4c;
 }
+
 label{
-  display:flex;
-  align-items:center;
-  padding:10px;
-  margin:8px 0;
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:10px;
-  cursor:pointer;
-  transition:0.2s;
+display:flex;
+align-items:center;
+padding:10px;
+margin:8px 0;
+border:1px solid rgba(255,255,255,.2);
+border-radius:10px;
+cursor:pointer;
+transition:0.2s;
 }
 
-/* 🔥 quando selecionado */
 label:has(input:checked){
-  border:2px solid #00ff4c;
-  background:rgba(0,255,76,0.08);
+border:2px solid #00ff4c;
+background:rgba(0,255,76,0.08);
 }
-
 </style>
 </head>
 
@@ -100,33 +95,26 @@ label:has(input:checked){
 
 <div class="bloco">
 <h2>PASSO 1</h2>
-
 <label><input type="radio" name="camarao" value="Não"> Não sou alérgico</label>
 <label><input type="radio" name="camarao" value="Sim"> Adicional de camarão (+R$10)</label>
 </div>
 
 <div class="bloco">
 <h2>PASSO 2 - QUANTIDADE</h2>
-
 <label><input type="radio" name="quantidade" value="450G" data-preco="14.90"> 450G - R$14,90</label>
-
 <label><input type="radio" name="quantidade" value="900G" data-preco="27.90"> 900G - R$27,90</label>
 </div>
 
 <div class="bloco">
 <h2>PASSO 3 - MASSA</h2>
-
 <label><input type="radio" name="massa" value="Espaguete"> Espaguete</label>
-
 <label><input type="radio" name="massa" value="Fettuccine"> Fettuccine</label>
-
 <label><input type="radio" name="massa" value="Penne"> Penne</label>
-
 <label><input type="radio" name="massa" value="Parafuso"> Parafuso</label>
 </div>
+
 <div class="bloco">
 <h2>PASSO 4 - INGREDIENTES (MÁXIMO 6)</h2>
-
 <label><input type="checkbox" class="ingrediente" value="Azeitona"> Azeitona</label>
 <label><input type="checkbox" class="ingrediente" value="Brócolis"> Brócolis</label>
 <label><input type="checkbox" class="ingrediente" value="Bacon"> Bacon</label>
@@ -150,7 +138,6 @@ label:has(input:checked){
 
 <div class="bloco">
 <h2>PASSO 5 - MOLHOS (ATÉ 3)</h2>
-
 <label><input type="checkbox" class="molho" value="Molho Branco"> Molho Branco</label>
 <label><input type="checkbox" class="molho" value="Bolonhesa"> Bolonhesa</label>
 <label><input type="checkbox" class="molho" value="Molho de Tomate"> Molho de Tomate</label>
@@ -159,17 +146,15 @@ label:has(input:checked){
 
 <div class="bloco">
 <h2>PASSO 6 - FINALIZAÇÃO</h2>
-
-<label><input type="checkbox" value="Cheiro Verde" class="finalizacao"> Cheiro Verde</label>
-<label><input type="checkbox" value="Manjericão" class="finalizacao"> Manjericão</label>
-<label><input type="checkbox" value="Orégano" class="finalizacao"> Orégano</label>
-<label><input type="checkbox" value="Queijo Ralado" class="finalizacao"> Queijo Ralado</label>
-<label><input type="checkbox" value="Pimenta Calabresa" class="finalizacao"> Pimenta Calabresa</label>
+<label><input type="checkbox" class="finalizacao" value="Cheiro Verde"> Cheiro Verde</label>
+<label><input type="checkbox" class="finalizacao" value="Manjericão"> Manjericão</label>
+<label><input type="checkbox" class="finalizacao" value="Orégano"> Orégano</label>
+<label><input type="checkbox" class="finalizacao" value="Queijo Ralado"> Queijo Ralado</label>
+<label><input type="checkbox" class="finalizacao" value="Pimenta Calabresa"> Pimenta Calabresa</label>
 </div>
 
 <div class="bloco">
 <h2>TURBINAR (+R$3,00)</h2>
-
 <label><input type="radio" name="turbinar" value="Sim"> Sim</label>
 <label><input type="radio" name="turbinar" value="Não" checked> Não</label>
 </div>
@@ -178,9 +163,20 @@ label:has(input:checked){
 FINALIZAR PEDIDO
 </button>
 
-<div id="resumo"></div>
+<!-- PRINT AREA -->
+<div id="printArea">
+  <div id="resumo"></div>
+</div>
+
+<!-- BOTÃO WHATSAPP -->
+<button class="botao" onclick="enviarWhatsApp()">
+📲 Enviar no WhatsApp
+</button>
 
 </div>
+
+<!-- BIBLIOTECA PRINT -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
 
@@ -244,31 +240,46 @@ document.getElementById('resumo').innerHTML=
 <h2>✅ PEDIDO FINALIZADO</h2>
 
 <p><strong>Quantidade:</strong> ${quantidade.value}</p>
-
 <p><strong>Massa:</strong> ${massa}</p>
-
 <p><strong>Ingredientes:</strong><br>${ingredientes.join(", ")}</p>
-
 <p><strong>Molhos:</strong><br>${molhos.join(", ")}</p>
-
 <p><strong>Finalização:</strong><br>${finalizacao.join(", ")}</p>
-
 <p><strong>Camarão:</strong> ${camarao}</p>
-
 <p><strong>Turbinar:</strong> ${turbinar}</p>
 
 <h2>TOTAL: R$ ${total.toFixed(2)}</h2>
 
 <hr>
 
-<h3>📸 Tire um print desta tela</h3>
-
-<p>e envie para:</p>
-
-<h2>📲 (88) 99903-1455</h2>
-
+<h3>📸 Pedido pronto para envio</h3>
 `;
+
 window.scrollTo(0,document.body.scrollHeight);
+
+gerarImagem();
+}
+
+// PRINT
+let imagemPedido = "";
+
+function gerarImagem(){
+html2canvas(document.getElementById("printArea")).then(canvas=>{
+imagemPedido = canvas.toDataURL("image/png");
+});
+}
+
+// WHATSAPP
+function enviarWhatsApp(){
+
+let texto = "🍝 *NOVO PEDIDO J&S AÇAITERIA*%0A%0A";
+
+texto += document.getElementById("resumo").innerText;
+
+let numero = "5588999031455";
+
+let url = `https://wa.me/${numero}?text=${texto}`;
+
+window.open(url, "_blank");
 }
 
 </script>
