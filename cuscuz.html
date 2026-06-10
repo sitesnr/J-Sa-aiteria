@@ -87,6 +87,31 @@ border:2px solid #00ff4c;
 background:rgba(0,255,76,0.08);
 }
 
+/* ===== CARRINHO ===== */
+#carrinhoBox{
+background:rgba(255,255,255,.12);
+padding:15px;
+border-radius:15px;
+margin-top:20px;
+}
+
+.itemCarrinho{
+display:flex;
+justify-content:space-between;
+padding:8px;
+border-bottom:1px solid rgba(255,255,255,.2);
+}
+
+.remover{
+background:red;
+color:white;
+border:none;
+border-radius:8px;
+padding:5px 10px;
+cursor:pointer;
+}
+
+/* ===== TICKET ===== */
 .ticket{
   background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
   padding:20px;
@@ -147,29 +172,15 @@ background:rgba(0,255,76,0.08);
 
 <div class="bloco">
 <h2>PASSO 3 - CUSCUZ</h2>
-
-<label><input type="radio" name="massa" value="Ovo"> 1. Ovo — R$8</label>
-<label><input type="radio" name="massa" value="Calabresa"> 2. Calabresa — R$8</label>
-<label><input type="radio" name="massa" value="Carne Moída"> 3. Carne Moída — R$8</label>
-<label><input type="radio" name="massa" value="Frango"> 4. Frango — R$8</label>
-<label><input type="radio" name="massa" value="Carne de Sol"> 5. Carne de Sol — R$13</label>
-<label><input type="radio" name="massa" value="Ovo + Frango"> 6. Ovo, Frango — R$10</label>
-<label><input type="radio" name="massa" value="Frango + Calabresa"> 7. Frango, Calabresa — R$10</label>
-<label><input type="radio" name="massa" value="Ovo + Carne Moída"> 8. Ovo, Carne Moída — R$10</label>
-<label><input type="radio" name="massa" value="Ovo + Carne Moída + Frango"> 9. Ovo, Carne Moída e Frango — R$11</label>
-<label><input type="radio" name="massa" value="Carne Moída + Frango + Calabresa"> 10. Carne Moída, Frango e Calabresa — R$11</label>
-<label><input type="radio" name="massa" value="Especial 11"> 11. Mussarela, milho, azeitona, orégano, Requeijão — R$8</label>
-<label><input type="radio" name="massa" value="Especial 12"> 12. Calabresa, Mussarela, milho, azeitona, orégano, Requeijão — R$10</label>
-<label><input type="radio" name="massa" value="Especial 13"> 13. Carne Moída, Mussarela, Milho, azeitona, orégano, Requeijão — R$12</label>
-<label><input type="radio" name="massa" value="Especial 14"> 14. Ovo, mussarela, milho, azeitona, orégano, Requeijão — R$14</label>
-<label><input type="radio" name="massa" value="Especial 15"> 15. Frango, mussarela, milho, azeitona, orégano, Requeijão — R$13</label>
-<label><input type="radio" name="massa" value="Especial 16"> 16. Carne de Sol, mussarela, milho, azeitona, orégano, Requeijão — R$15</label>
-
+<label><input type="radio" name="massa" value="Ovo"> Ovo</label>
+<label><input type="radio" name="massa" value="Calabresa"> Calabresa</label>
+<label><input type="radio" name="massa" value="Carne Moída"> Carne Moída</label>
+<label><input type="radio" name="massa" value="Frango"> Frango</label>
+<label><input type="radio" name="massa" value="Carne de Sol"> Carne de Sol</label>
 </div>
 
 <div class="bloco">
 <h2>PASSO 4 - INGREDIENTES (MÁXIMO 6)</h2>
-
 <label><input type="checkbox" class="ingrediente" value="Tomate"> Tomate</label>
 <label><input type="checkbox" class="ingrediente" value="Cebola"> Cebola</label>
 <label><input type="checkbox" class="ingrediente" value="Cheiro Verde"> Cheiro Verde</label>
@@ -182,6 +193,16 @@ background:rgba(0,255,76,0.08);
 <label><input type="checkbox" class="finalizacao" value="Orégano"> Orégano</label>
 </div>
 
+<!-- 🛒 CARRINHO ADICIONADO -->
+<div class="bloco">
+<h2>🛒 CARRINHO</h2>
+<div id="carrinho"></div>
+
+<button class="botao" type="button" onclick="adicionarCarrinho()">
+➕ ADICIONAR AO CARRINHO
+</button>
+</div>
+
 <button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
 
 <div id="resumo"></div>
@@ -189,7 +210,6 @@ background:rgba(0,255,76,0.08);
 <div id="ticketArea" style="display:none;">
 
   <div id="ticket" class="ticket">
-
 <div style="text-align:center; margin-bottom:15px;">
   <img src="logo.jpg" style="width:130px; border-radius:15px;">
 </div>
@@ -200,9 +220,7 @@ background:rgba(0,255,76,0.08);
 
     <div class="card">
       <h3>J&S AÇAITERIA</h3>
-
       <div id="conteudoTicket"></div>
-
       <h2 class="total" id="totalTicket"></h2>
     </div>
 
@@ -216,8 +234,11 @@ background:rgba(0,255,76,0.08);
 </div>
 
 <script>
-let imagemPedido="";
 
+let carrinho = [];
+let imagemPedido = "";
+
+/* LIMITE INGREDIENTES */
 document.querySelectorAll('.ingrediente').forEach(item=>{
 item.addEventListener('change',function(){
 let marcados=document.querySelectorAll('.ingrediente:checked');
@@ -228,6 +249,56 @@ alert('Máximo 6 ingredientes.');
 });
 });
 
+/* ADICIONAR AO CARRINHO */
+function adicionarCarrinho(){
+
+let quantidade=document.querySelector('input[name="quantidade"]:checked');
+if(!quantidade){alert("Escolha quantidade");return;}
+
+let massa=document.querySelector('input[name="massa"]:checked');
+if(!massa){alert("Escolha cuscuz");return;}
+
+let camarao=document.querySelector('input[name="camarao"]:checked');
+camarao = camarao ? camarao.value : "Não";
+
+let ingredientes=[...document.querySelectorAll('.ingrediente:checked')].map(i=>i.value);
+let finalizacao=[...document.querySelectorAll('.finalizacao:checked')].map(i=>i.value);
+
+let item = `${quantidade.value} - ${massa.value} - Ingredientes: ${ingredientes.join(", ")} - Finalização: ${finalizacao.join(", ")} - Adicional: ${camarao}`;
+
+carrinho.push(item);
+renderCarrinho();
+
+alert("Adicionado ao carrinho!");
+}
+
+function renderCarrinho(){
+
+let div=document.getElementById("carrinho");
+
+if(carrinho.length===0){
+div.innerHTML="Carrinho vazio";
+return;
+}
+
+div.innerHTML="";
+
+carrinho.forEach((item,index)=>{
+div.innerHTML+=`
+<div style="display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid rgba(255,255,255,.2);">
+<span>${item}</span>
+<button onclick="removerItem(${index})" style="background:red;color:white;border:none;border-radius:8px;padding:5px;">X</button>
+</div>
+`;
+});
+}
+
+function removerItem(index){
+carrinho.splice(index,1);
+renderCarrinho();
+}
+
+/* PEDIDO ORIGINAL (SEM ALTERAÇÃO) */
 function finalizarPedido(){
 
 let quantidade=document.querySelector('input[name="quantidade"]:checked');
@@ -245,8 +316,6 @@ let finalizacao=[...document.querySelectorAll('.finalizacao:checked')].map(i=>i.
 let total=0;
 total+=parseFloat(quantidade.dataset.preco);
 if(camarao==="Sim") total+=10;
-
-let id=Math.floor(Math.random()*9000)+1000;
 
 document.getElementById("conteudoTicket").innerHTML=`
 <p><b>Quantidade:</b> ${quantidade.value}</p>
@@ -281,6 +350,7 @@ link.href=imagemPedido;
 link.download="pedido-cuscuz.png";
 link.click();
 }
+
 </script>
 
 </body>
