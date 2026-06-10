@@ -77,6 +77,22 @@ font-weight:600;
 
 <a class="botao" href="massas.html">🍝 MASSAS</a>
 
+<a class="botao principal" href="carrinho.html">
+🛒 VER CARRINHO
+</a>
+
+<a class="botao principal" href="carrinho.html">
+🛒 CARRINHO (<span id="qtdCarrinho">0</span>)
+</a>
+
+<script>
+function atualizarQtd(){
+let c = JSON.parse(localStorage.getItem("carrinho")) || [];
+document.getElementById("qtdCarrinho").innerText = c.length;
+}
+atualizarQtd();
+</script>
+
 <a class="botao voltar" href="index.html">⬅ VOLTAR</a>
 
 </div>
