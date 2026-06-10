@@ -7,8 +7,6 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
 <style>
 *{
 margin:0;
@@ -53,24 +51,6 @@ font-weight:600;
 margin-top:20px;
 }
 
-#resumo{
-display:none;
-background:white;
-color:#333;
-padding:20px;
-border-radius:15px;
-margin-top:20px;
-}
-
-input[type="checkbox"],
-input[type="radio"]{
-width:26px;
-height:26px;
-margin-right:12px;
-cursor:pointer;
-accent-color:#00ff4c;
-}
-
 label{
 display:flex;
 align-items:center;
@@ -87,15 +67,15 @@ border:2px solid #00ff4c;
 background:rgba(0,255,76,0.08);
 }
 
-/* ===== CARRINHO ===== */
-#carrinhoBox{
+/* CARRINHO GLOBAL */
+#carrinho{
 background:rgba(255,255,255,.12);
-padding:15px;
-border-radius:15px;
-margin-top:20px;
+padding:10px;
+border-radius:12px;
+margin-top:10px;
 }
 
-.itemCarrinho{
+.item{
 display:flex;
 justify-content:space-between;
 padding:8px;
@@ -106,48 +86,32 @@ border-bottom:1px solid rgba(255,255,255,.2);
 background:red;
 color:white;
 border:none;
+padding:5px 8px;
 border-radius:8px;
-padding:5px 10px;
 cursor:pointer;
 }
 
-/* ===== TICKET ===== */
+/* TICKET */
 .ticket{
-  background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
-  padding:20px;
-  border-radius:20px;
-  color:white;
-  margin-top:20px;
+background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
+padding:20px;
+border-radius:20px;
+margin-top:20px;
 }
 
 .card{
-  background:white;
-  color:#333;
-  border-radius:15px;
-  padding:20px;
-  margin-top:15px;
-}
-
-.topo{
-  text-align:center;
+background:white;
+color:#333;
+padding:20px;
+border-radius:15px;
+margin-top:15px;
 }
 
 .total{
-  text-align:center;
-  margin-top:15px;
-  font-size:22px;
-  color:#5B178A;
-}
-
-.verde{
-  background:#25D366;
-  color:white;
-  margin-top:15px;
-}
-
-.roxo{
-  background:#6A0DAD;
-  color:white;
+text-align:center;
+font-size:22px;
+color:#5B178A;
+margin-top:15px;
 }
 </style>
 </head>
@@ -159,222 +123,138 @@ cursor:pointer;
 <h1>🌽 MONTE SEU CUSCUZ</h1>
 
 <div class="bloco">
-<h2>PASSO 1</h2>
-<label><input type="radio" name="camarao" value="Não"> Sem adicional</label>
-<label><input type="radio" name="camarao" value="Sim"> Adicional (+R$10)</label>
+<h2>ESCOLHA SEU CUSCUZ</h2>
+
+<label><input type="radio" name="cuscuz" value="Ovo - R$8" data-preco="8"> Ovo</label>
+<label><input type="radio" name="cuscuz" value="Calabresa - R$8" data-preco="8"> Calabresa</label>
+<label><input type="radio" name="cuscuz" value="Carne Moída - R$8" data-preco="8"> Carne Moída</label>
+<label><input type="radio" name="cuscuz" value="Frango - R$8" data-preco="8"> Frango</label>
+<label><input type="radio" name="cuscuz" value="Carne de Sol - R$13" data-preco="13"> Carne de Sol</label>
+
+<label><input type="radio" name="cuscuz" value="Ovo + Frango - R$10" data-preco="10"> Ovo + Frango</label>
+<label><input type="radio" name="cuscuz" value="Frango + Calabresa - R$10" data-preco="10"> Frango + Calabresa</label>
+<label><input type="radio" name="cuscuz" value="Ovo + Carne Moída - R$10" data-preco="10"> Ovo + Carne Moída</label>
+
+<label><input type="radio" name="cuscuz" value="Ovo + Carne Moída + Frango - R$11" data-preco="11"> Ovo + Carne Moída + Frango</label>
+<label><input type="radio" name="cuscuz" value="Carne Moída + Frango + Calabresa - R$11" data-preco="11"> Carne Moída + Frango + Calabresa</label>
+
+<label><input type="radio" name="cuscuz" value="Especial 2 - R$8" data-preco="8"> Mussarela, milho, azeitona, orégano, requeijão</label>
+<label><input type="radio" name="cuscuz" value="Especial 3 - R$10" data-preco="10"> Calabresa, mussarela, milho, azeitona, orégano, requeijão</label>
+<label><input type="radio" name="cuscuz" value="Especial 4 - R$12" data-preco="12"> Carne Moída, mussarela, milho, azeitona, orégano, requeijão</label>
+<label><input type="radio" name="cuscuz" value="Especial 5 - R$14" data-preco="14"> Ovo, mussarela, milho, azeitona, orégano, requeijão</label>
+<label><input type="radio" name="cuscuz" value="Especial 6 - R$13" data-preco="13"> Frango, mussarela, milho, azeitona, orégano, requeijão</label>
+<label><input type="radio" name="cuscuz" value="Especial 7 - R$15" data-preco="15"> Carne de Sol, mussarela, milho, azeitona, orégano, requeijão</label>
+
 </div>
 
 <div class="bloco">
-<h2>PASSO 2 - QUANTIDADE</h2>
-<label><input type="radio" name="quantidade" value="1 Unidade" data-preco="8"> 1 Unidade - R$8</label>
-<label><input type="radio" name="quantidade" value="2 Unidades" data-preco="15"> 2 Unidades - R$15</label>
-</div>
-
-<div class="bloco">
-<h2>PASSO 3 - CUSCUZ</h2>
-<label><input type="radio" name="massa" value="Ovo"> Ovo</label>
-<label><input type="radio" name="massa" value="Calabresa"> Calabresa</label>
-<label><input type="radio" name="massa" value="Carne Moída"> Carne Moída</label>
-<label><input type="radio" name="massa" value="Frango"> Frango</label>
-<label><input type="radio" name="massa" value="Carne de Sol"> Carne de Sol</label>
-</div>
-
-<div class="bloco">
-<h2>PASSO 4 - INGREDIENTES (MÁXIMO 6)</h2>
-<label><input type="checkbox" class="ingrediente" value="Tomate"> Tomate</label>
-<label><input type="checkbox" class="ingrediente" value="Cebola"> Cebola</label>
-<label><input type="checkbox" class="ingrediente" value="Cheiro Verde"> Cheiro Verde</label>
-<label><input type="checkbox" class="ingrediente" value="Milho"> Milho</label>
-<label><input type="checkbox" class="ingrediente" value="Azeitona"> Azeitona</label>
-</div>
-
-<div class="bloco">
-<h2>FINALIZAÇÃO</h2>
-<label><input type="checkbox" class="finalizacao" value="Orégano"> Orégano</label>
-</div>
-
-<!-- 🛒 CARRINHO ADICIONADO -->
-<div class="bloco">
-<h2>🛒 CARRINHO</h2>
+<h2>🛒 CARRINHO GLOBAL</h2>
 <div id="carrinho"></div>
 
-<button class="botao" type="button" onclick="adicionarCarrinho()">
-➕ ADICIONAR AO CARRINHO
-</button>
+<button class="botao" onclick="adicionarCarrinho()">➕ ADICIONAR AO CARRINHO</button>
 </div>
 
 <button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
 
-<div id="resumo"></div>
-
 <div id="ticketArea" style="display:none;">
-
-  <div id="ticket" class="ticket">
-<div style="text-align:center; margin-bottom:15px;">
-  <img src="logo.jpg" style="width:130px; border-radius:15px;">
-</div>
-
-    <div class="topo">
-      <h2>🌽 PEDIDO FINALIZADO!</h2>
-    </div>
+  <div class="ticket">
+    <h2 style="text-align:center;">🌽 PEDIDO FINALIZADO</h2>
 
     <div class="card">
-      <h3>J&S AÇAITERIA</h3>
       <div id="conteudoTicket"></div>
       <h2 class="total" id="totalTicket"></h2>
     </div>
-
   </div>
-
-  <button class="botao verde" onclick="enviarWhatsApp()">📲 WhatsApp</button>
-  <button class="botao roxo" onclick="baixarImagem()">⬇️ Baixar imagem</button>
-
 </div>
 
 </div>
 
 <script>
 
-/* ===== CARRINHO GLOBAL (SÓ ADICIONADO) ===== */
-
+/* ===== CARRINHO GLOBAL ===== */
 function getCarrinho(){
 return JSON.parse(localStorage.getItem("carrinho")) || [];
 }
 
-function salvarCarrinho(carrinho){
-localStorage.setItem("carrinho", JSON.stringify(carrinho));
+function salvarCarrinho(c){
+localStorage.setItem("carrinho", JSON.stringify(c));
 }
 
-/* ===== SEU CÓDIGO ORIGINAL (NÃO ALTERADO) ===== */
-
-let carrinho = [];
-let imagemPedido = "";
-
-/* LIMITE INGREDIENTES */
-document.querySelectorAll('.ingrediente').forEach(item=>{
-item.addEventListener('change',function(){
-let marcados=document.querySelectorAll('.ingrediente:checked');
-if(marcados.length>6){
-this.checked=false;
-alert('Máximo 6 ingredientes.');
-}
-});
-});
-
-/* ADICIONAR AO CARRINHO (SÓ ADAPTADO PARA GLOBAL) */
+/* ADICIONAR */
 function adicionarCarrinho(){
 
-let quantidade=document.querySelector('input[name="quantidade"]:checked');
-if(!quantidade){alert("Escolha quantidade");return;}
+let itemEscolhido = document.querySelector('input[name="cuscuz"]:checked');
 
-let massa=document.querySelector('input[name="massa"]:checked');
-if(!massa){alert("Escolha cuscuz");return;}
-
-let camarao=document.querySelector('input[name="camarao"]:checked');
-camarao = camarao ? camarao.value : "Não";
-
-let ingredientes=[...document.querySelectorAll('.ingrediente:checked')].map(i=>i.value);
-let finalizacao=[...document.querySelectorAll('.finalizacao:checked')].map(i=>i.value);
-
-let item = `${quantidade.value} - ${massa.value} - Ingredientes: ${ingredientes.join(", ")} - Finalização: ${finalizacao.join(", ")} - Adicional: ${camarao}`;
-
-/* 🔥 AQUI FOI SÓ TROCA PARA CARRINHO GLOBAL */
-let carrinhoGlobal = getCarrinho();
-carrinhoGlobal.push("🌽 Cuscuz - " + item);
-salvarCarrinho(carrinhoGlobal);
-
-renderCarrinho();
-
-alert("Adicionado ao carrinho!");
-}
-
-/* RENDER (SEM ALTERAR LÓGICA DO SITE) */
-function renderCarrinho(){
-
-let div=document.getElementById("carrinho");
-
-if(!div) return;
-
-let carrinhoGlobal = getCarrinho();
-
-if(carrinhoGlobal.length===0){
-div.innerHTML="Carrinho vazio";
+if(!itemEscolhido){
+alert("Escolha um cuscuz");
 return;
 }
 
-div.innerHTML="";
+let item = "🌽 Cuscuz - " + itemEscolhido.value;
 
-carrinhoGlobal.forEach((item,index)=>{
-div.innerHTML+=`
-<div style="display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid rgba(255,255,255,.2);">
+let carrinho = getCarrinho();
+carrinho.push(item);
+salvarCarrinho(carrinho);
+
+renderCarrinho();
+alert("Adicionado ao carrinho!");
+}
+
+/* RENDER CARRINHO GLOBAL */
+function renderCarrinho(){
+
+let carrinho = getCarrinho();
+let div = document.getElementById("carrinho");
+
+if(carrinho.length === 0){
+div.innerHTML = "Carrinho vazio";
+return;
+}
+
+div.innerHTML = "";
+
+carrinho.forEach((item,index)=>{
+div.innerHTML += `
+<div class="item">
 <span>${item}</span>
-<button onclick="removerItem(${index})" style="background:red;color:white;border:none;border-radius:8px;padding:5px;">X</button>
+<button class="remover" onclick="remover(${index})">X</button>
 </div>
 `;
 });
 }
 
-function removerItem(index){
-let carrinhoGlobal = getCarrinho();
-carrinhoGlobal.splice(index,1);
-salvarCarrinho(carrinhoGlobal);
+function remover(index){
+let carrinho = getCarrinho();
+carrinho.splice(index,1);
+salvarCarrinho(carrinho);
 renderCarrinho();
 }
 
-/* ORIGINAL */
+/* FINALIZAR (MOSTRA TODOS OS PRODUTOS DO CARRINHO GLOBAL) */
 function finalizarPedido(){
 
-let quantidade=document.querySelector('input[name="quantidade"]:checked');
-if(!quantidade){alert("Escolha quantidade");return;}
+let carrinho = getCarrinho();
 
-let massa=document.querySelector('input[name="massa"]:checked');
-if(!massa){alert("Escolha cuscuz");return;}
+if(carrinho.length === 0){
+alert("Carrinho vazio");
+return;
+}
 
-let camarao=document.querySelector('input[name="camarao"]:checked');
-camarao = camarao ? camarao.value : "Não";
+let totalTexto = carrinho.map(i => "• " + i).join("<br>");
 
-let ingredientes=[...document.querySelectorAll('.ingrediente:checked')].map(i=>i.value);
-let finalizacao=[...document.querySelectorAll('.finalizacao:checked')].map(i=>i.value);
-
-let total=0;
-total+=parseFloat(quantidade.dataset.preco);
-if(camarao==="Sim") total+=10;
-
-document.getElementById("conteudoTicket").innerHTML=`
-<p><b>Quantidade:</b> ${quantidade.value}</p>
-<p><b>Cuscuz:</b> ${massa.value}</p>
-<p><b>Ingredientes:</b> ${ingredientes.join(", ")}</p>
-<p><b>Finalização:</b> ${finalizacao.join(", ")}</p>
-<p><b>Adicional:</b> ${camarao}</p>
+document.getElementById("conteudoTicket").innerHTML = `
+<h3>SEU PEDIDO:</h3>
+${totalTexto}
 `;
 
-document.getElementById("totalTicket").innerText="TOTAL: R$ "+total.toFixed(2);
+document.getElementById("totalTicket").innerText = "VERIFIQUE O CARRINHO";
 
-document.getElementById("ticketArea").style.display="block";
-
-setTimeout(()=>{
-html2canvas(document.getElementById("ticket")).then(canvas=>{
-imagemPedido=canvas.toDataURL("image/png");
-});
-},500);
+document.getElementById("ticketArea").style.display = "block";
 }
 
-function enviarWhatsApp(){
-let texto="🌽 NOVO PEDIDO CUSCUZ%0A%0A";
-texto+=document.getElementById("conteudoTicket").innerText;
-texto+="%0A%0A"+document.getElementById("totalTicket").innerText;
-
-window.open("https://wa.me/5588999031455?text="+texto,"_blank");
-}
-
-function baixarImagem(){
-let link=document.createElement("a");
-link.href=imagemPedido;
-link.download="pedido-cuscuz.png";
-link.click();
-}
+window.onload = renderCarrinho;
 
 </script>
 
 </body>
-</html></html>
+</html></html></html>
