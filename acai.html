@@ -106,7 +106,7 @@ color:#5B178A;
 .verde{background:#25D366;color:white;margin-top:15px;}
 .roxo{background:#6A0DAD;color:white;}
 
-/* 🛒 CARRINHO */
+/* 🛒 CARRINHO GLOBAL */
 #carrinhoBox{
 background:rgba(255,255,255,.12);
 padding:15px;
@@ -189,10 +189,10 @@ cursor:pointer;
 <label><input type="checkbox" value="Cereja"> Cereja</label>
 </div>
 
-<!-- 🛒 BOTÃO NOVO (CARRINHO) -->
+<!-- 🛒 BOTÃO -->
 <button class="botao" onclick="adicionarCarrinho()">➕ ADICIONAR AO CARRINHO</button>
 
-<!-- 🛒 CARRINHO NOVO -->
+<!-- 🛒 CARRINHO -->
 <div id="carrinhoBox">
 <h2>🛒 CARRINHO</h2>
 <div id="carrinho"></div>
@@ -229,7 +229,15 @@ cursor:pointer;
 
 <script>
 
-let carrinho = [];
+/* ===================== CARRINHO GLOBAL ===================== */
+
+function getCarrinho(){
+return JSON.parse(localStorage.getItem("carrinho")) || [];
+}
+
+function salvarCarrinho(carrinho){
+localStorage.setItem("carrinho", JSON.stringify(carrinho));
+}
 
 function adicionarCarrinho(){
 
@@ -241,16 +249,22 @@ if(!base){alert("Escolha a base");return;}
 
 let ingredientes=[...document.querySelectorAll('input[type="checkbox"]:checked')].map(i=>i.value);
 
-let item = `${tamanho.value} - ${base.value} - ${ingredientes.join(", ")}`;
+let item = `🍧 Açaí - ${tamanho.value} - ${base.value} - ${ingredientes.join(", ")}`;
 
+let carrinho = getCarrinho();
 carrinho.push(item);
+salvarCarrinho(carrinho);
+
 renderCarrinho();
 
 alert("Adicionado ao carrinho!");
 }
 
 function renderCarrinho(){
-let div=document.getElementById("carrinho");
+let carrinho = getCarrinho();
+let div = document.getElementById("carrinho");
+
+if(!div) return;
 
 if(carrinho.length===0){
 div.innerHTML="Carrinho vazio";
@@ -270,9 +284,15 @@ div.innerHTML+=`
 }
 
 function removerItem(index){
+let carrinho = getCarrinho();
 carrinho.splice(index,1);
+salvarCarrinho(carrinho);
 renderCarrinho();
 }
+
+window.onload = renderCarrinho;
+
+/* ===================== FINALIZAÇÃO ORIGINAL ===================== */
 
 function finalizarPedido(){
 
@@ -319,4 +339,4 @@ link.click();
 </script>
 
 </body>
-</html></html>
+</html></html></html>
