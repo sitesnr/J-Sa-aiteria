@@ -82,9 +82,6 @@ border-radius:14px;
 font-size:17px;
 letter-spacing:1px;
 transition:.3s;
-border:none;
-cursor:pointer;
-background:transparent;
 font-family:'Montserrat',sans-serif;
 }
 
@@ -138,25 +135,10 @@ href="https://wa.me/5588999031455">
 📲 PEDIR NO WHATSAPP
 </a>
 
-<button class="botao secundario" onclick="abrirCardapio()">
+<a class="botao secundario"
+href="cardapio.html">
 🥤 CARDÁPIO
-</button>
-
-<div id="menuCardapio" style="display:none;">
-
-<a class="botao secundario" href="#">
-🥤 AÇAÍ
 </a>
-
-<a class="botao secundario" href="#">
-🌽 CUSCUZ
-</a>
-
-<a class="botao secundario" href="#">
-🍝 MASSAS
-</a>
-
-</div>
 
 <a class="botao secundario"
 href="https://www.instagram.com/jsacaiterianr">
@@ -173,18 +155,6 @@ J&S AÇAITERIA | NOVA RUSSAS - CE
 </div>
 
 </div>
-
-<script>
-function abrirCardapio() {
-  var menu = document.getElementById("menuCardapio");
-
-  if (menu.style.display === "none") {
-    menu.style.display = "block";
-  } else {
-    menu.style.display = "none";
-  }
-}
-</script>
 
 </body>
 </html>
