@@ -105,6 +105,31 @@ color:#5B178A;
 
 .verde{background:#25D366;color:white;margin-top:15px;}
 .roxo{background:#6A0DAD;color:white;}
+
+/* 🛒 CARRINHO */
+#carrinhoBox{
+background:rgba(255,255,255,.12);
+padding:15px;
+border-radius:15px;
+margin-top:20px;
+}
+
+.itemCarrinho{
+display:flex;
+justify-content:space-between;
+margin:8px 0;
+padding:8px;
+border-bottom:1px solid rgba(255,255,255,.2);
+}
+
+.remover{
+background:red;
+color:white;
+border:none;
+border-radius:8px;
+padding:5px 10px;
+cursor:pointer;
+}
 </style>
 </head>
 
@@ -143,7 +168,6 @@ color:#5B178A;
 
 <div class="bloco">
 <h2>COMPLEMENTOS PREMIUM</h2>
-
 <label><input type="checkbox" value="Chocowafer preto"> Chocowafer preto</label>
 <label><input type="checkbox" value="Chocowafer branco"> Chocowafer branco</label>
 <label><input type="checkbox" value="Tubetes"> Tubetes</label>
@@ -163,7 +187,15 @@ color:#5B178A;
 <label><input type="checkbox" value="Amendoim"> Amendoim</label>
 <label><input type="checkbox" value="Gotas de chocolate"> Gotas de chocolate</label>
 <label><input type="checkbox" value="Cereja"> Cereja</label>
+</div>
 
+<!-- 🛒 BOTÃO NOVO (CARRINHO) -->
+<button class="botao" onclick="adicionarCarrinho()">➕ ADICIONAR AO CARRINHO</button>
+
+<!-- 🛒 CARRINHO NOVO -->
+<div id="carrinhoBox">
+<h2>🛒 CARRINHO</h2>
+<div id="carrinho"></div>
 </div>
 
 <button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
@@ -196,7 +228,51 @@ color:#5B178A;
 </div>
 
 <script>
-let imagemPedido="";
+
+let carrinho = [];
+
+function adicionarCarrinho(){
+
+let tamanho=document.querySelector('input[name="tamanho"]:checked');
+if(!tamanho){alert("Escolha o tamanho");return;}
+
+let base=document.querySelector('input[name="base"]:checked');
+if(!base){alert("Escolha a base");return;}
+
+let ingredientes=[...document.querySelectorAll('input[type="checkbox"]:checked')].map(i=>i.value);
+
+let item = `${tamanho.value} - ${base.value} - ${ingredientes.join(", ")}`;
+
+carrinho.push(item);
+renderCarrinho();
+
+alert("Adicionado ao carrinho!");
+}
+
+function renderCarrinho(){
+let div=document.getElementById("carrinho");
+
+if(carrinho.length===0){
+div.innerHTML="Carrinho vazio";
+return;
+}
+
+div.innerHTML="";
+
+carrinho.forEach((item,index)=>{
+div.innerHTML+=`
+<div class="itemCarrinho">
+<span>${item}</span>
+<button class="remover" onclick="removerItem(${index})">X</button>
+</div>
+`;
+});
+}
+
+function removerItem(index){
+carrinho.splice(index,1);
+renderCarrinho();
+}
 
 function finalizarPedido(){
 
@@ -208,15 +284,13 @@ if(!base){alert("Escolha a base");return;}
 
 let ingredientes=[...document.querySelectorAll('input[type="checkbox"]:checked')].map(i=>i.value);
 
-let total=parseFloat(tamanho.dataset.preco);
-
 document.getElementById("conteudoTicket").innerHTML=`
 <p><b>Tamanho:</b> ${tamanho.value}</p>
 <p><b>Base:</b> ${base.value}</p>
 <p><b>Itens:</b> ${ingredientes.join(", ")}</p>
 `;
 
-document.getElementById("totalTicket").innerText="TOTAL: R$ "+total.toFixed(2);
+document.getElementById("totalTicket").innerText="TOTAL: R$ 0,00";
 
 document.getElementById("ticketArea").style.display="block";
 
@@ -241,7 +315,8 @@ link.href=imagemPedido;
 link.download="pedido-acai.png";
 link.click();
 }
+
 </script>
 
 </body>
-</html>
+</html></html>
