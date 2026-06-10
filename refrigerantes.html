@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refrigerantes - J&S Açaiteria</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
+font-family:'Montserrat',sans-serif;
+color:white;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+}
+
+h1{
+text-align:center;
+margin:20px 0;
+}
+
+.bloco{
+background:rgba(255,255,255,.08);
+padding:15px;
+border-radius:15px;
+margin-bottom:20px;
+}
+
+label{
+display:flex;
+align-items:center;
+padding:10px;
+margin:8px 0;
+border:1px solid rgba(255,255,255,.2);
+border-radius:10px;
+cursor:pointer;
+transition:0.2s;
+}
+
+label:has(input:checked){
+border:2px solid #00ff4c;
+background:rgba(0,255,76,0.08);
+}
+
+input{
+width:22px;
+height:22px;
+margin-right:10px;
+accent-color:#00ff4c;
+}
+
+.botao{
+width:100%;
+padding:18px;
+border:none;
+border-radius:12px;
+font-size:18px;
+cursor:pointer;
+background:white;
+color:#5B178A;
+font-weight:600;
+margin-top:20px;
+}
+
+#carrinhoBox{
+background:rgba(255,255,255,.12);
+padding:15px;
+border-radius:15px;
+margin-top:20px;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+padding:8px;
+border-bottom:1px solid rgba(255,255,255,.2);
+}
+
+.remover{
+background:red;
+color:white;
+border:none;
+padding:5px 8px;
+border-radius:8px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🥤 REFRIGERANTES</h1>
+
+<div class="bloco">
+
+<label><input type="radio" name="refri" data-preco="5" value="Coca-Cola Lata"> Coca-Cola Lata — R$5</label>
+
+<label><input type="radio" name="refri" data-preco="5" value="Coca-Cola Zero Lata"> Coca-Cola Zero Lata — R$5</label>
+
+<label><input type="radio" name="refri" data-preco="5" value="Cajuína Lata"> Cajuína Lata — R$5</label>
+
+<label><input type="radio" name="refri" data-preco="10" value="Coca-Cola 1L"> Coca-Cola 1L — R$10</label>
+
+<label><input type="radio" name="refri" data-preco="10" value="Coca-Cola Zero 1L"> Coca-Cola Zero 1L — R$10</label>
+
+<label><input type="radio" name="refri" data-preco="8" value="Guaraná 1L"> Guaraná 1L — R$8</label>
+
+<label><input type="radio" name="refri" data-preco="8" value="Pepsi 1L"> Pepsi 1L — R$8</label>
+
+<label><input type="radio" name="refri" data-preco="7" value="Coca-Cola 600ml"> Coca-Cola 600ml — R$7</label>
+
+<label><input type="radio" name="refri" data-preco="7" value="Coca-Cola Zero 600ml"> Coca-Cola Zero 600ml — R$7</label>
+
+</div>
+
+<!-- CARRINHO -->
+<div class="bloco">
+<h2>🛒 CARRINHO</h2>
+<div id="carrinho"></div>
+
+<button class="botao" onclick="adicionarCarrinho()">
+➕ ADICIONAR AO CARRINHO
+</button>
+</div>
+
+</div>
+
+<script>
+
+/* ================= CARRINHO GLOBAL ================= */
+
+function getCarrinho(){
+return JSON.parse(localStorage.getItem("carrinho")) || [];
+}
+
+function salvarCarrinho(c){
+localStorage.setItem("carrinho", JSON.stringify(c));
+}
+
+function adicionarCarrinho(){
+
+let refri = document.querySelector('input[name="refri"]:checked');
+
+if(!refri){
+alert("Escolha um refrigerante");
+return;
+}
+
+let item = {
+nome: "🥤 " + refri.value,
+preco: Number(refri.dataset.preco)
+};
+
+let carrinho = getCarrinho();
+carrinho.push(item);
+salvarCarrinho(carrinho);
+
+renderCarrinho();
+
+alert("Adicionado ao carrinho!");
+}
+
+function renderCarrinho(){
+
+let carrinho = getCarrinho();
+let div = document.getElementById("carrinho");
+
+if(carrinho.length === 0){
+div.innerHTML = "Carrinho vazio";
+return;
+}
+
+div.innerHTML = "";
+
+carrinho.forEach((item,index)=>{
+div.innerHTML += `
+<div class="item">
+<span>${item.nome} - R$ ${item.preco.toFixed(2)}</span>
+<button class="remover" onclick="remover(${index})">X</button>
+</div>
+`;
+});
+}
+
+function remover(index){
+let carrinho = getCarrinho();
+carrinho.splice(index,1);
+salvarCarrinho(carrinho);
+renderCarrinho();
+}
+
+window.onload = renderCarrinho;
+
+</script>
+
+</body>
+</html>
