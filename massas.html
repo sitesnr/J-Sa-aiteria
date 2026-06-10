@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -8,24 +8,65 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
 body{
 background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
 font-family:'Montserrat',sans-serif;
+color:white;
 padding:20px;
 }
 
-.container{max-width:700px;margin:auto;}
+.container{
+max-width:700px;
+margin:auto;
+}
 
-h1,h2{text-align:center;margin:20px 0;color:white;}
+h1,h2{
+text-align:center;
+margin:20px 0;
+}
 
 .bloco{
 background:rgba(255,255,255,.08);
 padding:15px;
 border-radius:15px;
 margin-bottom:20px;
-color:white;
+}
+
+.botao{
+width:100%;
+padding:18px;
+border:none;
+border-radius:12px;
+font-size:18px;
+cursor:pointer;
+background:white;
+color:#5B178A;
+font-weight:600;
+margin-top:20px;
+}
+
+#resumo{
+display:none;
+background:white;
+color:#333;
+padding:20px;
+border-radius:15px;
+margin-top:20px;
+}
+
+input[type="checkbox"],
+input[type="radio"]{
+width:26px;
+height:26px;
+margin-right:12px;
+cursor:pointer;
+accent-color:#00ff4c;
 }
 
 label{
@@ -36,73 +77,12 @@ margin:8px 0;
 border:1px solid rgba(255,255,255,.2);
 border-radius:10px;
 cursor:pointer;
-background:rgba(255,255,255,.05);
+transition:0.2s;
 }
 
-input[type="checkbox"],input[type="radio"]{
-width:22px;height:22px;margin-right:10px;accent-color:#00ff4c;
-}
-
-/* 🔥 RECIBO ESTILO APP */
-#printArea{
-display:none;
-}
-
-.recibo{
-background:white;
-border-radius:20px;
-padding:20px;
-color:#333;
-}
-
-.topo{
-text-align:center;
-}
-
-.topo img{
-width:80px;
-border-radius:12px;
-}
-
-.badge{
-font-size:12px;
-opacity:0.7;
-}
-
-.item{
-margin:10px 0;
-font-size:14px;
-}
-
-.total{
-font-size:22px;
-text-align:center;
-margin-top:15px;
-font-weight:bold;
-color:#5B178A;
-}
-
-.botao{
-width:100%;
-padding:16px;
-border:none;
-border-radius:12px;
-font-size:16px;
-cursor:pointer;
-background:white;
-color:#5B178A;
-font-weight:600;
-margin-top:10px;
-}
-
-.botao.verde{
-background:#25D366;
-color:white;
-}
-
-.botao.roxo{
-background:#6A0DAD;
-color:white;
+label:has(input:checked){
+border:2px solid #00ff4c;
+background:rgba(0,255,76,0.08);
 }
 </style>
 </head>
@@ -113,7 +93,6 @@ color:white;
 
 <h1>🍝 MONTE SUA MASSA</h1>
 
-<!-- (SEUS CAMPOS IGUAIS) -->
 <div class="bloco">
 <h2>PASSO 1</h2>
 <label><input type="radio" name="camarao" value="Não"> Não sou alérgico</label>
@@ -121,107 +100,151 @@ color:white;
 </div>
 
 <div class="bloco">
-<h2>PASSO 2</h2>
+<h2>PASSO 2 - QUANTIDADE</h2>
 <label><input type="radio" name="quantidade" value="450G" data-preco="14.90"> 450G - R$14,90</label>
 <label><input type="radio" name="quantidade" value="900G" data-preco="27.90"> 900G - R$27,90</label>
 </div>
 
 <div class="bloco">
-<h2>PASSO 3</h2>
+<h2>PASSO 3 - MASSA</h2>
 <label><input type="radio" name="massa" value="Espaguete"> Espaguete</label>
 <label><input type="radio" name="massa" value="Fettuccine"> Fettuccine</label>
 <label><input type="radio" name="massa" value="Penne"> Penne</label>
 <label><input type="radio" name="massa" value="Parafuso"> Parafuso</label>
 </div>
 
-<button class="botao" onclick="finalizarPedido()">
-FINALIZAR PEDIDO
-</button>
+<div class="bloco">
+<h2>PASSO 4 - INGREDIENTES (MÁXIMO 6)</h2>
 
-<!-- RECIBO -->
-<div id="printArea">
-  <div class="recibo" id="reciboContent"></div>
+<label><input type="checkbox" class="ingrediente" value="Azeitona"> Azeitona</label>
+<label><input type="checkbox" class="ingrediente" value="Brócolis"> Brócolis</label>
+<label><input type="checkbox" class="ingrediente" value="Bacon"> Bacon</label>
+<label><input type="checkbox" class="ingrediente" value="Calabresa"> Calabresa</label>
+<label><input type="checkbox" class="ingrediente" value="Carne Moída"> Carne Moída</label>
+<label><input type="checkbox" class="ingrediente" value="Carne de Sol"> Carne de Sol</label>
+<label><input type="checkbox" class="ingrediente" value="Cebola"> Cebola</label>
+<label><input type="checkbox" class="ingrediente" value="Pimentão"> Pimentão</label>
+<label><input type="checkbox" class="ingrediente" value="Ervilha"> Ervilha</label>
+<label><input type="checkbox" class="ingrediente" value="Frango"> Frango</label>
+<label><input type="checkbox" class="ingrediente" value="Milho"> Milho</label>
+<label><input type="checkbox" class="ingrediente" value="Ovo de Codorna"> Ovo de Codorna</label>
+<label><input type="checkbox" class="ingrediente" value="Palmito"> Palmito</label>
+<label><input type="checkbox" class="ingrediente" value="Presunto"> Presunto</label>
+<label><input type="checkbox" class="ingrediente" value="Queijo Mussarela"> Queijo Mussarela</label>
+<label><input type="checkbox" class="ingrediente" value="Queijo Coalho"> Queijo Coalho</label>
+<label><input type="checkbox" class="ingrediente" value="Tomate"> Tomate</label>
+<label><input type="checkbox" class="ingrediente" value="Uva Passas"> Uva Passas</label>
+<label><input type="checkbox" class="ingrediente" value="Batata Palha"> Batata Palha</label>
 </div>
 
+<div class="bloco">
+<h2>PASSO 5 - MOLHOS (ATÉ 3)</h2>
+<label><input type="checkbox" class="molho" value="Molho Branco"> Molho Branco</label>
+<label><input type="checkbox" class="molho" value="Bolonhesa"> Bolonhesa</label>
+<label><input type="checkbox" class="molho" value="Molho de Tomate"> Molho de Tomate</label>
+<label><input type="checkbox" class="molho" value="Sem Molho"> Sem Molho</label>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<div class="bloco">
+<h2>PASSO 6 - FINALIZAÇÃO</h2>
+<label><input type="checkbox" value="Cheiro Verde" class="finalizacao"> Cheiro Verde</label>
+<label><input type="checkbox" value="Manjericão" class="finalizacao"> Manjericão</label>
+<label><input type="checkbox" value="Orégano" class="finalizacao"> Orégano</label>
+<label><input type="checkbox" value="Queijo Ralado" class="finalizacao"> Queijo Ralado</label>
+<label><input type="checkbox" value="Pimenta Calabresa" class="finalizacao"> Pimenta Calabresa</label>
+</div>
+
+<div class="bloco">
+<h2>TURBINAR (+R$3,00)</h2>
+<label><input type="radio" name="turbinar" value="Sim"> Sim</label>
+<label><input type="radio" name="turbinar" value="Não" checked> Não</label>
+</div>
+
+<button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
+
+<div id="resumo"></div>
+
+</div>
 
 <script>
+document.querySelectorAll('.ingrediente').forEach(item=>{
+item.addEventListener('change',function(){
+let marcados=document.querySelectorAll('.ingrediente:checked');
+if(marcados.length>6){
+this.checked=false;
+alert('Você pode escolher no máximo 6 ingredientes.');
+}
+});
+});
 
-let pedidoNumero = Math.floor(Math.random()*9000)+1000;
+document.querySelectorAll('.molho').forEach(item=>{
+item.addEventListener('change',function(){
+let marcados=document.querySelectorAll('.molho:checked');
+if(marcados.length>3){
+this.checked=false;
+alert('Você pode escolher no máximo 3 molhos.');
+}
+});
+});
 
 function finalizarPedido(){
 
+let total=0;
+
 let quantidade=document.querySelector('input[name="quantidade"]:checked');
-if(!quantidade){alert("Escolha quantidade");return;}
+if(!quantidade){
+alert('Escolha uma quantidade.');
+return;
+}
+
+total+=parseFloat(quantidade.dataset.preco);
+
+let camarao=document.querySelector('input[name="camarao"]:checked').value;
+if(camarao==="Sim"){
+total+=10;
+}
+
+let turbinar=document.querySelector('input[name="turbinar"]:checked').value;
+if(turbinar==="Sim"){
+total+=3;
+}
 
 let massa=document.querySelector('input[name="massa"]:checked');
-massa=massa?massa.value:"Não selecionado";
+massa=massa?massa.value:"Não selecionada";
 
-let camarao=document.querySelector('input[name="camarao"]:checked');
-camarao=camarao?camarao.value:"Não";
+let ingredientes=[...document.querySelectorAll('.ingrediente:checked')].map(i=>i.value);
+let molhos=[...document.querySelectorAll('.molho:checked')].map(i=>i.value);
+let finalizacao=[...document.querySelectorAll('.finalizacao:checked')].map(i=>i.value);
 
-let total=parseFloat(quantidade.dataset.preco);
-if(camarao==="Sim") total+=10;
+document.getElementById('resumo').style.display='block';
 
-let data = new Date().toLocaleString();
+document.getElementById('resumo').innerHTML=
+`
+<h2>✅ PEDIDO FINALIZADO</h2>
+<p><strong>Quantidade:</strong> ${quantidade.value}</p>
+<p><strong>Massa:</strong> ${massa}</p>
+<p><strong>Ingredientes:</strong><br>${ingredientes.join(", ")}</p>
+<p><strong>Molhos:</strong><br>${molhos.join(", ")}</p>
+<p><strong>Finalização:</strong><br>${finalizacao.join(", ")}</p>
+<p><strong>Camarão:</strong> ${camarao}</p>
+<p><strong>Turbinar:</strong> ${turbinar}</p>
 
-document.getElementById("reciboContent").innerHTML=`
-<div class="topo">
-<img src="logo.jpg">
-<h2>J&S AÇAITERIA</h2>
-<div class="badge">Comprovante de Pedido</div>
-</div>
+<h2>TOTAL: R$ ${total.toFixed(2)}</h2>
 
 <hr>
 
-<div class="item"><b>Nº Pedido:</b> #${pedidoNumero}</div>
-<div class="item"><b>Data:</b> ${data}</div>
-<div class="item"><b>Quantidade:</b> ${quantidade.value}</div>
-<div class="item"><b>Massa:</b> ${massa}</div>
-<div class="item"><b>Camarão:</b> ${camarao}</div>
-
-<div class="total">TOTAL: R$ ${total.toFixed(2)}</div>
-
-<button class="botao verde" onclick="enviarWhatsApp()">📲 Enviar no WhatsApp</button>
-<button class="botao roxo" onclick="baixarImagem()">📥 Baixar Imagem</button>
+<h3>📸 Tire um print desta tela</h3>
+<p>e envie para:</p>
+<h2>📲 (88) 99903-1455</h2>
 `;
 
 window.scrollTo(0,document.body.scrollHeight);
-document.getElementById("printArea").style.display="block";
 }
-
-function baixarImagem(){
-html2canvas(document.querySelector(".recibo")).then(canvas=>{
-let link=document.createElement("a");
-link.download="pedido.png";
-link.href=canvas.toDataURL();
-link.click();
-});
-}
-
-function enviarWhatsApp(){
-
-let numero="5588999031455";
-
-html2canvas(document.querySelector(".recibo")).then(canvas=>{
-
-let img=canvas.toDataURL("image/png");
-
-let link=document.createElement("a");
-link.download="pedido.png";
-link.href=img;
-link.click();
-
-window.open(`https://wa.me/${numero}?text=Novo pedido recebido`, "_blank");
-});
-}
-
 </script>
 
 </body>
 </html>
+
 
 
 
