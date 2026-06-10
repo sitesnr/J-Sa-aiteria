@@ -64,6 +64,24 @@ padding:20px;
 border-radius:15px;
 margin-top:20px;
 }
+input[type="checkbox"],
+input[type="radio"]{
+width:26px;
+height:26px;
+margin-right:12px;
+cursor:pointer;
+accent-color:#5B178A;
+}
+
+label{
+display:flex;
+align-items:center;
+padding:10px;
+margin:8px 0;
+border:1px solid rgba(255,255,255,.2);
+border-radius:10px;
+cursor:pointer;
+}
 </style>
 </head>
 
@@ -76,7 +94,7 @@ margin-top:20px;
 <div class="bloco">
 <h2>PASSO 1</h2>
 
-<label><input type="radio" name="camarao" value="Não" checked> Não sou alérgico</label>
+<label><input type="radio" name="camarao" value="Não"> Não sou alérgico</label>
 <label><input type="radio" name="camarao" value="Sim"> Adicional de camarão (+R$10)</label>
 </div>
 
@@ -99,7 +117,6 @@ margin-top:20px;
 
 <label><input type="radio" name="massa" value="Parafuso"> Parafuso</label>
 </div>
-```html
 <div class="bloco">
 <h2>PASSO 4 - INGREDIENTES (MÁXIMO 6)</h2>
 
