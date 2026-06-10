@@ -82,6 +82,10 @@ border-radius:14px;
 font-size:17px;
 letter-spacing:1px;
 transition:.3s;
+border:none;
+cursor:pointer;
+background:transparent;
+font-family:'Montserrat',sans-serif;
 }
 
 .principal{
@@ -113,8 +117,7 @@ opacity:.8;
 
 <div class="container">
 
-<!-- TROCAR PELA LOGO DEPOIS -->
-<img src="logo.jpg" class="logo">
+<img src="logo.jpg" class="logo" alt="Logo J&S Açaiteria">
 
 <h1 class="nome">J&S</h1>
 
@@ -135,16 +138,24 @@ href="https://wa.me/5588999031455">
 📲 PEDIR NO WHATSAPP
 </a>
 
-<div>
 <button class="botao secundario" onclick="abrirCardapio()">
 🥤 CARDÁPIO
 </button>
 
 <div id="menuCardapio" style="display:none;">
-<a class="botao secundario" href="#">🥤 Açaí</a>
-<a class="botao secundario" href="#">🌽 Cuscuz</a>
-<a class="botao secundario" href="#">🍝 Massas</a>
-</div>
+
+<a class="botao secundario" href="#">
+🥤 AÇAÍ
+</a>
+
+<a class="botao secundario" href="#">
+🌽 CUSCUZ
+</a>
+
+<a class="botao secundario" href="#">
+🍝 MASSAS
+</a>
+
 </div>
 
 <a class="botao secundario"
@@ -167,7 +178,7 @@ J&S AÇAITERIA | NOVA RUSSAS - CE
 function abrirCardapio() {
   var menu = document.getElementById("menuCardapio");
 
-  if(menu.style.display === "none"){
+  if (menu.style.display === "none") {
     menu.style.display = "block";
   } else {
     menu.style.display = "none";
@@ -177,5 +188,6 @@ function abrirCardapio() {
 
 </body>
 </html>
+
 
 
