@@ -123,7 +123,6 @@ background:#6A0DAD;
 color:white;
 }
 
-/* 🛒 CARRINHO GLOBAL */
 #carrinhoBox{
 background:rgba(255,255,255,.12);
 padding:15px;
@@ -221,87 +220,58 @@ cursor:pointer;
 <label><input type="radio" name="turbinar" value="Não" checked> Não</label>
 </div>
 
-<!-- 🛒 CARRINHO -->
 <div class="bloco">
 <h2>🛒 CARRINHO</h2>
 <div id="carrinho"></div>
-<button class="botao" type="button" onclick="adicionarCarrinho()">➕ ADICIONAR AO CARRINHO</button>
+<button class="botao" onclick="adicionarCarrinho()">➕ ADICIONAR AO CARRINHO</button>
 </div>
 
 <button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
 
-<div id="resumo"></div>
-
 <div id="ticketArea" style="display:none;">
-  <div id="ticket" class="ticket">
-    <div style="text-align:center;margin-bottom:15px;">
-      <img src="logo.jpg" style="width:130px;border-radius:15px;">
-    </div>
+<div id="ticket" class="ticket">
 
-    <div class="topo">
-      <h2>🍝 PEDIDO FINALIZADO!</h2>
-      <p>Veja abaixo o resumo do seu pedido</p>
-    </div>
+<div style="text-align:center;margin-bottom:15px;">
+<img src="logo.jpg" style="width:130px;border-radius:15px;">
+</div>
 
-    <div class="card">
-      <h3>J&S AÇAITERIA</h3>
-      <p id="pedidoId"></p>
-      <div id="conteudoTicket"></div>
-      <h2 class="total" id="totalTicket"></h2>
-    </div>
-  </div>
+<div class="topo">
+<h2>🍝 PEDIDO FINALIZADO!</h2>
+</div>
 
-  <button class="botao verde" onclick="enviarWhatsApp()">📲 Enviar no WhatsApp</button>
-  <button class="botao roxo" onclick="baixarImagem()">⬇️ Baixar imagem do pedido</button>
+<div class="card">
+<h3>J&S AÇAITERIA</h3>
+<p id="pedidoId"></p>
+<div id="conteudoTicket"></div>
+<h2 class="total" id="totalTicket"></h2>
+</div>
+
+</div>
+
+<button class="botao verde" onclick="enviarWhatsApp()">📲 WhatsApp</button>
+<button class="botao roxo" onclick="baixarImagem()">⬇️ Baixar imagem</button>
 </div>
 
 </div>
 
 <script>
 
-/* ===== CARRINHO GLOBAL (ADICIONADO) ===== */
+/* CARRINHO GLOBAL */
 function getCarrinho(){
 return JSON.parse(localStorage.getItem("carrinho")) || [];
 }
-
 function salvarCarrinho(c){
 localStorage.setItem("carrinho", JSON.stringify(c));
 }
 
-/* ===== SEU CÓDIGO ORIGINAL ===== */
-
-let imagemPedido = "";
-let carrinho = [];
-
-/* ingredientes limite */
-document.querySelectorAll('.ingrediente').forEach(item=>{
-item.addEventListener('change',function(){
-let marcados=document.querySelectorAll('.ingrediente:checked');
-if(marcados.length>6){
-this.checked=false;
-alert('Você pode escolher no máximo 6 ingredientes.');
-}
-});
-});
-
-document.querySelectorAll('.molho').forEach(item=>{
-item.addEventListener('change',function(){
-let marcados=document.querySelectorAll('.molho:checked');
-if(marcados.length>3){
-this.checked=false;
-alert('Você pode escolher no máximo 3 molhos.');
-}
-});
-});
-
-/* ADICIONAR CARRINHO (GLOBAL) */
+/* ADD CARRINHO */
 function adicionarCarrinho(){
 
 let quantidade=document.querySelector('input[name="quantidade"]:checked');
-if(!quantidade){alert('Escolha a quantidade.');return;}
+if(!quantidade){alert("Escolha quantidade");return;}
 
 let massa=document.querySelector('input[name="massa"]:checked');
-if(!massa){alert('Escolha a massa.');return;}
+if(!massa){alert("Escolha massa");return;}
 
 let camarao=document.querySelector('input[name="camarao"]:checked');
 camarao = camarao ? camarao.value : "Não";
@@ -310,150 +280,89 @@ let ingredientes=[...document.querySelectorAll('.ingrediente:checked')].map(i=>i
 let molhos=[...document.querySelectorAll('.molho:checked')].map(i=>i.value);
 let finalizacao=[...document.querySelectorAll('.finalizacao:checked')].map(i=>i.value);
 
-let item = `🍝 Massas - ${quantidade.value} - ${massa.value} - Ingredientes: ${ingredientes.join(", ")} - Molhos: ${molhos.join(", ")} - Finalização: ${finalizacao.join(", ")} - Camarão: ${camarao}`;
+let item = `🍝 MASSA - ${quantidade.value} - ${massa.value} - Ingredientes: ${ingredientes.join(", ")} - Molhos: ${molhos.join(", ")} - Finalização: ${finalizacao.join(", ")} - Camarão: ${camarao}`;
 
-let carrinhoGlobal = getCarrinho();
-carrinhoGlobal.push(item);
-salvarCarrinho(carrinhoGlobal);
+let carrinho = getCarrinho();
+carrinho.push(item);
+salvarCarrinho(carrinho);
 
 renderCarrinho();
-
-alert("Adicionado ao carrinho!");
+alert("Adicionado!");
 }
 
+/* RENDER */
 function renderCarrinho(){
-
 let div=document.getElementById("carrinho");
+let carrinho=getCarrinho();
 
-let carrinhoGlobal = getCarrinho();
-
-if(carrinhoGlobal.length===0){
+if(carrinho.length===0){
 div.innerHTML="Carrinho vazio";
 return;
 }
 
 div.innerHTML="";
-
-carrinhoGlobal.forEach((item,index)=>{
+carrinho.forEach((item,i)=>{
 div.innerHTML+=`
 <div style="display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid rgba(255,255,255,.2);">
 <span>${item}</span>
-<button onclick="removerItem(${index})" class="remover">X</button>
-</div>
-`;
+<button onclick="removerItem(${i})" class="remover">X</button>
+</div>`;
 });
 }
 
-function removerItem(index){
-let carrinhoGlobal = getCarrinho();
-carrinhoGlobal.splice(index,1);
-salvarCarrinho(carrinhoGlobal);
+function removerItem(i){
+let carrinho=getCarrinho();
+carrinho.splice(i,1);
+salvarCarrinho(carrinho);
 renderCarrinho();
 }
 
-/* FINALIZAR PEDIDO (SEM ALTERAÇÃO) */
+/* FINALIZAR PEDIDO GLOBAL (AQUI É A MUDANÇA IMPORTANTE) */
 function finalizarPedido(){
 
-let quantidade=document.querySelector('input[name="quantidade"]:checked');
-if(!quantidade){
-alert('Escolha uma quantidade.');
+let carrinho = getCarrinho();
+
+if(carrinho.length===0){
+alert("Carrinho vazio!");
 return;
 }
 
-let massa=document.querySelector('input[name="massa"]:checked');
-if(!massa){
-alert('Escolha a massa.');
-return;
-}
+let id=Math.floor(Math.random()*9000)+1000;
 
-let camarao=document.querySelector('input[name="camarao"]:checked');
-camarao = camarao ? camarao.value : "Não";
+let textoItens = carrinho.map(i=>"• "+i).join("\n");
 
-let turbinar=document.querySelector('input[name="turbinar"]:checked');
-turbinar = turbinar ? turbinar.value : "Não";
+document.getElementById("pedidoId").innerText="PEDIDO #"+id;
 
-let ingredientes=[...document.querySelectorAll('.ingrediente:checked')].map(i=>i.value);
-let molhos=[...document.querySelectorAll('.molho:checked')].map(i=>i.value);
-let finalizacao=[...document.querySelectorAll('.finalizacao:checked')].map(i=>i.value);
-
-let total=0;
-total += parseFloat(quantidade.dataset.preco);
-if(camarao==="Sim") total+=10;
-if(turbinar==="Sim") total+=3;
-
-let id = Math.floor(Math.random()*9000)+1000;
-
-document.getElementById("pedidoId").innerText = "PEDIDO #" + id;
-
-document.getElementById("conteudoTicket").innerHTML = `
-<p><b>Quantidade:</b> ${quantidade.value}</p>
-<p><b>Massa:</b> ${massa.value}</p>
-<p><b>Ingredientes:</b> ${ingredientes.join(", ")}</p>
-<p><b>Molhos:</b> ${molhos.join(", ")}</p>
-<p><b>Finalização:</b> ${finalizacao.join(", ")}</p>
-<p><b>Camarão:</b> ${camarao}</p>
-<p><b>Turbinar:</b> ${turbinar}</p>
-`;
+document.getElementById("conteudoTicket").innerText = textoItens;
 
 document.getElementById("totalTicket").innerText =
-"TOTAL: R$ " + total.toFixed(2);
+"ITENS NO PEDIDO: "+carrinho.length;
 
 document.getElementById("ticketArea").style.display="block";
-
-setTimeout(()=>{
-html2canvas(document.getElementById("ticket")).then(canvas=>{
-imagemPedido = canvas.toDataURL("image/png");
-});
-},500);
 
 window.scrollTo(0,document.body.scrollHeight);
 }
 
+/* WhatsApp */
 function enviarWhatsApp(){
-let texto = "🍝 NOVO PEDIDO J&S AÇAITERIA%0A%0A";
-texto += document.getElementById("conteudoTicket").innerText;
-texto += "%0A%0A" + document.getElementById("totalTicket").innerText;
-
-window.open("https://wa.me/5588999031455?text="+texto,"_blank");
+let texto = document.getElementById("conteudoTicket").innerText;
+window.open("https://wa.me/5588999031455?text="+encodeURIComponent(texto));
 }
 
+/* imagem */
 function baixarImagem(){
-let link=document.createElement("a");
-link.href=imagemPedido;
-link.download="pedido-massas.png";
-link.click();
-}
-
-function renderCarrinho(){
-let div=document.getElementById("carrinho");
-
-let carrinhoGlobal = getCarrinho();
-
-if(carrinhoGlobal.length===0){
-div.innerHTML="Carrinho vazio";
-return;
-}
-
-div.innerHTML="";
-
-carrinhoGlobal.forEach((item,index)=>{
-div.innerHTML+=`
-<div style="display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid rgba(255,255,255,.2);">
-<span>${item}</span>
-<button onclick="removerItem(${index})" class="remover">X</button>
-</div>
-`;
+html2canvas(document.getElementById("ticket")).then(canvas=>{
+let a=document.createElement("a");
+a.href=canvas.toDataURL();
+a.download="pedido.png";
+a.click();
 });
 }
 
-function removerItem(index){
-let carrinhoGlobal = getCarrinho();
-carrinhoGlobal.splice(index,1);
-salvarCarrinho(carrinhoGlobal);
-renderCarrinho();
-}
-
 </script>
+
+</body>
+</html></script>
 
 </body>
 </html></body>
