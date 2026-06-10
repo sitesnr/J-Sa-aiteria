@@ -271,15 +271,25 @@ imagemPedido = canvas.toDataURL("image/png");
 // WHATSAPP
 function enviarWhatsApp(){
 
-let texto = "🍝 *NOVO PEDIDO J&S AÇAITERIA*%0A%0A";
+  let numero = "5588999031455";
 
-texto += document.getElementById("resumo").innerText;
+  html2canvas(document.getElementById("printArea")).then(canvas => {
 
-let numero = "5588999031455";
+    let imagem = canvas.toDataURL("image/png");
 
-let url = `https://wa.me/${numero}?text=${texto}`;
+    let link = document.createElement("a");
+    link.download = "pedido-js.png";
+    link.href = imagem;
+    link.click();
 
-window.open(url, "_blank");
+    let texto = "🍝 NOVO PEDIDO J&S AÇAITERIA";
+
+    let url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+
+    window.open(url, "_blank");
+
+    alert("Imagem criada! Agora envie no WhatsApp.");
+  });
 }
 
 </script>
