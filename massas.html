@@ -7,7 +7,6 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
-<!-- IMPORTANTE PARA IMAGEM -->
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
@@ -126,6 +125,30 @@ background:rgba(0,255,76,0.08);
   background:#6A0DAD;
   color:white;
 }
+
+/* ===== CARRINHO ===== */
+#carrinhoBox{
+background:rgba(255,255,255,.12);
+padding:15px;
+border-radius:15px;
+margin-top:20px;
+}
+
+.itemCarrinho{
+display:flex;
+justify-content:space-between;
+padding:8px;
+border-bottom:1px solid rgba(255,255,255,.2);
+}
+
+.remover{
+background:red;
+color:white;
+border:none;
+border-radius:8px;
+padding:5px 10px;
+cursor:pointer;
+}
 </style>
 </head>
 
@@ -157,7 +180,6 @@ background:rgba(0,255,76,0.08);
 
 <div class="bloco">
 <h2>PASSO 4 - INGREDIENTES (MÁXIMO 6)</h2>
-
 <label><input type="checkbox" class="ingrediente" value="Azeitona"> Azeitona</label>
 <label><input type="checkbox" class="ingrediente" value="Brócolis"> Brócolis</label>
 <label><input type="checkbox" class="ingrediente" value="Bacon"> Bacon</label>
@@ -202,49 +224,52 @@ background:rgba(0,255,76,0.08);
 <label><input type="radio" name="turbinar" value="Não" checked> Não</label>
 </div>
 
+<!-- 🛒 CARRINHO ADICIONADO -->
+<div class="bloco">
+<h2>🛒 CARRINHO</h2>
+<div id="carrinho"></div>
+
+<button class="botao" type="button" onclick="adicionarCarrinho()">
+➕ ADICIONAR AO CARRINHO
+</button>
+</div>
+
 <button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
 
 <div id="resumo"></div>
 
-<!-- ===== TICKET ===== -->
 <div id="ticketArea" style="display:none;">
 
   <div id="ticket" class="ticket">
 <div style="text-align:center; margin-bottom:15px;">
   <img src="logo.jpg" style="width:130px; border-radius:15px;">
 </div>
+
     <div class="topo">
       <h2>🍝 PEDIDO FINALIZADO!</h2>
       <p>Veja abaixo o resumo do seu pedido</p>
     </div>
 
     <div class="card">
-
       <h3>J&S AÇAITERIA</h3>
       <p id="pedidoId"></p>
-
       <div id="conteudoTicket"></div>
-
       <h2 class="total" id="totalTicket"></h2>
-
     </div>
 
   </div>
 
-  <button class="botao verde" onclick="enviarWhatsApp()">
-    📲 Enviar no WhatsApp
-  </button>
-
-  <button class="botao roxo" onclick="baixarImagem()">
-    ⬇️ Baixar imagem do pedido
-  </button>
+  <button class="botao verde" onclick="enviarWhatsApp()">📲 Enviar no WhatsApp</button>
+  <button class="botao roxo" onclick="baixarImagem()">⬇️ Baixar imagem do pedido</button>
 
 </div>
 
 </div>
 
 <script>
+
 let imagemPedido = "";
+let carrinho = [];
 
 document.querySelectorAll('.ingrediente').forEach(item=>{
 item.addEventListener('change',function(){
@@ -265,6 +290,55 @@ alert('Você pode escolher no máximo 3 molhos.');
 }
 });
 });
+
+function adicionarCarrinho(){
+
+let quantidade=document.querySelector('input[name="quantidade"]:checked');
+if(!quantidade){alert('Escolha a quantidade.');return;}
+
+let massa=document.querySelector('input[name="massa"]:checked');
+if(!massa){alert('Escolha a massa.');return;}
+
+let camarao=document.querySelector('input[name="camarao"]:checked');
+camarao = camarao ? camarao.value : "Não";
+
+let ingredientes=[...document.querySelectorAll('.ingrediente:checked')].map(i=>i.value);
+let molhos=[...document.querySelectorAll('.molho:checked')].map(i=>i.value);
+let finalizacao=[...document.querySelectorAll('.finalizacao:checked')].map(i=>i.value);
+
+let item = `${quantidade.value} - ${massa.value} - Ingredientes: ${ingredientes.join(", ")} - Molhos: ${molhos.join(", ")} - Finalização: ${finalizacao.join(", ")} - Camarão: ${camarao}`;
+
+carrinho.push(item);
+renderCarrinho();
+
+alert("Adicionado ao carrinho!");
+}
+
+function renderCarrinho(){
+
+let div=document.getElementById("carrinho");
+
+if(carrinho.length===0){
+div.innerHTML="Carrinho vazio";
+return;
+}
+
+div.innerHTML="";
+
+carrinho.forEach((item,index)=>{
+div.innerHTML+=`
+<div style="display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid rgba(255,255,255,.2);">
+<span>${item}</span>
+<button onclick="removerItem(${index})" style="background:red;color:white;border:none;border-radius:8px;padding:5px;">X</button>
+</div>
+`;
+});
+}
+
+function removerItem(index){
+carrinho.splice(index,1);
+renderCarrinho();
+}
 
 function finalizarPedido(){
 
@@ -312,7 +386,6 @@ document.getElementById("conteudoTicket").innerHTML = `
 document.getElementById("totalTicket").innerText =
 "TOTAL: R$ " + total.toFixed(2);
 
-document.getElementById("resumo").style.display="none";
 document.getElementById("ticketArea").style.display="block";
 
 setTimeout(()=>{
@@ -327,7 +400,6 @@ window.scrollTo(0,document.body.scrollHeight);
 function enviarWhatsApp(){
 
 let texto = "🍝 NOVO PEDIDO J&S AÇAITERIA%0A%0A";
-
 texto += document.getElementById("conteudoTicket").innerText;
 texto += "%0A%0A" + document.getElementById("totalTicket").innerText;
 
@@ -342,12 +414,33 @@ link.href = imagemPedido;
 link.download = "pedido-js-acaiteria.png";
 link.click();
 }
+
+function renderCarrinho(){
+let div=document.getElementById("carrinho");
+
+if(carrinho.length===0){
+div.innerHTML="Carrinho vazio";
+return;
+}
+
+div.innerHTML="";
+
+carrinho.forEach((item,index)=>{
+div.innerHTML+=`
+<div style="display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid rgba(255,255,255,.2);">
+<span>${item}</span>
+<button onclick="removerItem(${index})" style="background:red;color:white;border:none;border-radius:8px;padding:5px;">X</button>
+</div>
+`;
+});
+}
+
+function removerItem(index){
+carrinho.splice(index,1);
+renderCarrinho();
+}
+
 </script>
 
 </body>
 </html>
-
-
-
-
-
