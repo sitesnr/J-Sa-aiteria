@@ -156,8 +156,19 @@ J&S AÇAITERIA | NOVA RUSSAS - CE
 
 </div>
 
+<script>
+
+/* ================= CARRINHO GLOBAL BASE ================= */
+
+function getCarrinho(){
+return JSON.parse(localStorage.getItem("carrinho")) || [];
+}
+
+function salvarCarrinho(c){
+localStorage.setItem("carrinho", JSON.stringify(c));
+}
+
+</script>
+
 </body>
 </html>
-
-
-
