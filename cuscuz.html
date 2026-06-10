@@ -1,1 +1,287 @@
-d
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuscuz - J&S Açaiteria</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
+font-family:'Montserrat',sans-serif;
+color:white;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+}
+
+h1,h2{
+text-align:center;
+margin:20px 0;
+}
+
+.bloco{
+background:rgba(255,255,255,.08);
+padding:15px;
+border-radius:15px;
+margin-bottom:20px;
+}
+
+.botao{
+width:100%;
+padding:18px;
+border:none;
+border-radius:12px;
+font-size:18px;
+cursor:pointer;
+background:white;
+color:#5B178A;
+font-weight:600;
+margin-top:20px;
+}
+
+#resumo{
+display:none;
+background:white;
+color:#333;
+padding:20px;
+border-radius:15px;
+margin-top:20px;
+}
+
+input[type="checkbox"],
+input[type="radio"]{
+width:26px;
+height:26px;
+margin-right:12px;
+cursor:pointer;
+accent-color:#00ff4c;
+}
+
+label{
+display:flex;
+align-items:center;
+padding:10px;
+margin:8px 0;
+border:1px solid rgba(255,255,255,.2);
+border-radius:10px;
+cursor:pointer;
+transition:0.2s;
+}
+
+label:has(input:checked){
+border:2px solid #00ff4c;
+background:rgba(0,255,76,0.08);
+}
+
+.ticket{
+  background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
+  padding:20px;
+  border-radius:20px;
+  color:white;
+  margin-top:20px;
+}
+
+.card{
+  background:white;
+  color:#333;
+  border-radius:15px;
+  padding:20px;
+  margin-top:15px;
+}
+
+.topo{
+  text-align:center;
+}
+
+.total{
+  text-align:center;
+  margin-top:15px;
+  font-size:22px;
+  color:#5B178A;
+}
+
+.verde{
+  background:#25D366;
+  color:white;
+  margin-top:15px;
+}
+
+.roxo{
+  background:#6A0DAD;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🌽 MONTE SEU CUSCUZ</h1>
+
+<div class="bloco">
+<h2>PASSO 1</h2>
+<label><input type="radio" name="camarao" value="Não"> Sem adicional</label>
+<label><input type="radio" name="camarao" value="Sim"> Adicional (+R$10)</label>
+</div>
+
+<div class="bloco">
+<h2>PASSO 2 - QUANTIDADE</h2>
+<label><input type="radio" name="quantidade" value="1 Unidade" data-preco="8"> 1 Unidade - R$8</label>
+<label><input type="radio" name="quantidade" value="2 Unidades" data-preco="15"> 2 Unidades - R$15</label>
+</div>
+
+<div class="bloco">
+<h2>PASSO 3 - CUSCUZ</h2>
+
+<label><input type="radio" name="massa" value="Ovo"> 1. Ovo — R$8</label>
+<label><input type="radio" name="massa" value="Calabresa"> 2. Calabresa — R$8</label>
+<label><input type="radio" name="massa" value="Carne Moída"> 3. Carne Moída — R$8</label>
+<label><input type="radio" name="massa" value="Frango"> 4. Frango — R$8</label>
+<label><input type="radio" name="massa" value="Carne de Sol"> 5. Carne de Sol — R$13</label>
+<label><input type="radio" name="massa" value="Ovo + Frango"> 6. Ovo, Frango — R$10</label>
+<label><input type="radio" name="massa" value="Frango + Calabresa"> 7. Frango, Calabresa — R$10</label>
+<label><input type="radio" name="massa" value="Ovo + Carne Moída"> 8. Ovo, Carne Moída — R$10</label>
+<label><input type="radio" name="massa" value="Ovo + Carne Moída + Frango"> 9. Ovo, Carne Moída e Frango — R$11</label>
+<label><input type="radio" name="massa" value="Carne Moída + Frango + Calabresa"> 10. Carne Moída, Frango e Calabresa — R$11</label>
+<label><input type="radio" name="massa" value="Especial 11"> 11. Mussarela, milho, azeitona, orégano, Requeijão — R$8</label>
+<label><input type="radio" name="massa" value="Especial 12"> 12. Calabresa, Mussarela, milho, azeitona, orégano, Requeijão — R$10</label>
+<label><input type="radio" name="massa" value="Especial 13"> 13. Carne Moída, Mussarela, Milho, azeitona, orégano, Requeijão — R$12</label>
+<label><input type="radio" name="massa" value="Especial 14"> 14. Ovo, mussarela, milho, azeitona, orégano, Requeijão — R$14</label>
+<label><input type="radio" name="massa" value="Especial 15"> 15. Frango, mussarela, milho, azeitona, orégano, Requeijão — R$13</label>
+<label><input type="radio" name="massa" value="Especial 16"> 16. Carne de Sol, mussarela, milho, azeitona, orégano, Requeijão — R$15</label>
+
+</div>
+
+<div class="bloco">
+<h2>PASSO 4 - INGREDIENTES (MÁXIMO 6)</h2>
+
+<label><input type="checkbox" class="ingrediente" value="Tomate"> Tomate</label>
+<label><input type="checkbox" class="ingrediente" value="Cebola"> Cebola</label>
+<label><input type="checkbox" class="ingrediente" value="Cheiro Verde"> Cheiro Verde</label>
+<label><input type="checkbox" class="ingrediente" value="Milho"> Milho</label>
+<label><input type="checkbox" class="ingrediente" value="Azeitona"> Azeitona</label>
+</div>
+
+<div class="bloco">
+<h2>FINALIZAÇÃO</h2>
+<label><input type="checkbox" class="finalizacao" value="Orégano"> Orégano</label>
+</div>
+
+<button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
+
+<div id="resumo"></div>
+
+<div id="ticketArea" style="display:none;">
+
+  <div id="ticket" class="ticket">
+
+<div style="text-align:center; margin-bottom:15px;">
+  <img src="logo.jpg" style="width:130px; border-radius:15px;">
+</div>
+
+    <div class="topo">
+      <h2>🌽 PEDIDO FINALIZADO!</h2>
+    </div>
+
+    <div class="card">
+      <h3>J&S AÇAITERIA</h3>
+
+      <div id="conteudoTicket"></div>
+
+      <h2 class="total" id="totalTicket"></h2>
+    </div>
+
+  </div>
+
+  <button class="botao verde" onclick="enviarWhatsApp()">📲 WhatsApp</button>
+  <button class="botao roxo" onclick="baixarImagem()">⬇️ Baixar imagem</button>
+
+</div>
+
+</div>
+
+<script>
+let imagemPedido="";
+
+document.querySelectorAll('.ingrediente').forEach(item=>{
+item.addEventListener('change',function(){
+let marcados=document.querySelectorAll('.ingrediente:checked');
+if(marcados.length>6){
+this.checked=false;
+alert('Máximo 6 ingredientes.');
+}
+});
+});
+
+function finalizarPedido(){
+
+let quantidade=document.querySelector('input[name="quantidade"]:checked');
+if(!quantidade){alert("Escolha quantidade");return;}
+
+let massa=document.querySelector('input[name="massa"]:checked');
+if(!massa){alert("Escolha cuscuz");return;}
+
+let camarao=document.querySelector('input[name="camarao"]:checked');
+camarao = camarao ? camarao.value : "Não";
+
+let ingredientes=[...document.querySelectorAll('.ingrediente:checked')].map(i=>i.value);
+let finalizacao=[...document.querySelectorAll('.finalizacao:checked')].map(i=>i.value);
+
+let total=0;
+total+=parseFloat(quantidade.dataset.preco);
+if(camarao==="Sim") total+=10;
+
+let id=Math.floor(Math.random()*9000)+1000;
+
+document.getElementById("conteudoTicket").innerHTML=`
+<p><b>Quantidade:</b> ${quantidade.value}</p>
+<p><b>Cuscuz:</b> ${massa.value}</p>
+<p><b>Ingredientes:</b> ${ingredientes.join(", ")}</p>
+<p><b>Finalização:</b> ${finalizacao.join(", ")}</p>
+<p><b>Adicional:</b> ${camarao}</p>
+`;
+
+document.getElementById("totalTicket").innerText="TOTAL: R$ "+total.toFixed(2);
+
+document.getElementById("ticketArea").style.display="block";
+
+setTimeout(()=>{
+html2canvas(document.getElementById("ticket")).then(canvas=>{
+imagemPedido=canvas.toDataURL("image/png");
+});
+},500);
+}
+
+function enviarWhatsApp(){
+let texto="🌽 NOVO PEDIDO CUSCUZ%0A%0A";
+texto+=document.getElementById("conteudoTicket").innerText;
+texto+="%0A%0A"+document.getElementById("totalTicket").innerText;
+
+window.open("https://wa.me/5588999031455?text="+texto,"_blank");
+}
+
+function baixarImagem(){
+let link=document.createElement("a");
+link.href=imagemPedido;
+link.download="pedido-cuscuz.png";
+link.click();
+}
+</script>
+
+</body>
+</html>
