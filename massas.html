@@ -88,27 +88,92 @@ cursor:pointer;
 
 <h1>🍝 MONTE SUA MASSA</h1>
 
+<!-- PASSO 1 -->
 <div class="bloco">
+<h2>PASSO 1: ATENÇÃO AO PEDIDO</h2>
+<label><input type="checkbox" class="extra" value="Alérgico"> Sou alérgico</label>
+<label><input type="checkbox" class="extra" value="Camarão +10"> Adicional de camarão + R$10</label>
+</div>
 
-<h2>QUANTIDADE</h2>
-<label><input type="radio" name="quantidade" value="450G" data-preco="14.90"> 450G - R$14,90</label>
-<label><input type="radio" name="quantidade" value="900G" data-preco="27.90"> 900G - R$27,90</label>
+<!-- PASSO 2 -->
+<div class="bloco">
+<h2>PASSO 2: QUANTIDADE</h2>
+<label><input type="radio" name="qtd" value="450G" data-preco="14.90"> 450G - R$14,90</label>
+<label><input type="radio" name="qtd" value="900G" data-preco="27.90"> 900G - R$27,90</label>
+</div>
 
-<h2>MASSA</h2>
+<!-- PASSO 3 -->
+<div class="bloco">
+<h2>PASSO 3: MASSA</h2>
 <label><input type="radio" name="massa" value="Espaguete"> Espaguete</label>
 <label><input type="radio" name="massa" value="Fettuccine"> Fettuccine</label>
 <label><input type="radio" name="massa" value="Penne"> Penne</label>
+<label><input type="radio" name="massa" value="Parafuso"> Parafuso</label>
+</div>
+
+<!-- PASSO 4 -->
+<div class="bloco">
+<h2>PASSO 4: INGREDIENTES (ESCOLHA LIVRE)</h2>
+
+<label><input type="checkbox" class="ing" value="Azeitona"> Azeitona</label>
+<label><input type="checkbox" class="ing" value="Frango"> Frango</label>
+<label><input type="checkbox" class="ing" value="Brócolis"> Brócolis</label>
+<label><input type="checkbox" class="ing" value="Milho"> Milho</label>
+<label><input type="checkbox" class="ing" value="Bacon"> Bacon</label>
+<label><input type="checkbox" class="ing" value="Ovo de codorna"> Ovo de codorna</label>
+<label><input type="checkbox" class="ing" value="Calabresa"> Calabresa</label>
+<label><input type="checkbox" class="ing" value="Palmito"> Palmito</label>
+<label><input type="checkbox" class="ing" value="Carne moída"> Carne moída</label>
+<label><input type="checkbox" class="ing" value="Presunto"> Presunto</label>
+<label><input type="checkbox" class="ing" value="Carne de sol"> Carne de sol</label>
+<label><input type="checkbox" class="ing" value="Mussarela"> Mussarela</label>
+<label><input type="checkbox" class="ing" value="Queijo coalho"> Queijo coalho</label>
+<label><input type="checkbox" class="ing" value="Cebola"> Cebola</label>
+<label><input type="checkbox" class="ing" value="Tomate"> Tomate</label>
+<label><input type="checkbox" class="ing" value="Ervilha"> Ervilha</label>
+<label><input type="checkbox" class="ing" value="Uva passas"> Uva passas</label>
+<label><input type="checkbox" class="ing" value="Batata palha"> Batata palha</label>
 
 </div>
 
+<!-- PASSO 5 -->
+<div class="bloco">
+<h2>PASSO 5: MOLHOS (ATÉ 3)</h2>
+
+<label><input type="checkbox" class="molho" value="Molho branco"> Molho branco</label>
+<label><input type="checkbox" class="molho" value="Molho bolonhesa"> Molho bolonhesa</label>
+<label><input type="checkbox" class="molho" value="Molho de tomate"> Molho de tomate</label>
+<label><input type="checkbox" class="molho" value="Sem molho"> Sem molho</label>
+
+</div>
+
+<!-- PASSO 6 -->
+<div class="bloco">
+<h2>PASSO 6: FINALIZAÇÃO</h2>
+
+<label><input type="checkbox" class="final" value="Cheiro verde"> Cheiro verde</label>
+<label><input type="checkbox" class="final" value="Manjericão"> Manjericão</label>
+<label><input type="checkbox" class="final" value="Orégano"> Orégano</label>
+<label><input type="checkbox" class="final" value="Queijo ralado"> Queijo ralado</label>
+<label><input type="checkbox" class="final" value="Pimenta calabresa"> Pimenta calabresa</label>
+
+</div>
+
+<!-- TURBINAR -->
+<div class="bloco">
+<h2>DESEJA TURBINAR?</h2>
+<label><input type="radio" name="turbo" value="Sim +3" data-preco="3"> Sim (+R$3,00)</label>
+<label><input type="radio" name="turbo" value="Não" data-preco="0"> Não</label>
+</div>
+
+<!-- CARRINHO -->
 <div class="bloco">
 <h2>🛒 CARRINHO</h2>
 <div id="carrinho"></div>
 
-<button class="botao" onclick="adicionarCarrinho()">➕ ADICIONAR AO CARRINHO</button>
-</div>
-
+<button class="botao" onclick="adicionarCarrinho()">➕ ADICIONAR</button>
 <button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
+</div>
 
 </div>
 
@@ -122,20 +187,29 @@ function salvarCarrinho(c){
 localStorage.setItem("carrinho", JSON.stringify(c));
 }
 
-/* ➕ ADD UNIVERSAL */
 function adicionarCarrinho(){
 
-let quantidade=document.querySelector('input[name="quantidade"]:checked');
+let qtd=document.querySelector('input[name="qtd"]:checked');
 let massa=document.querySelector('input[name="massa"]:checked');
+let turbo=document.querySelector('input[name="turbo"]:checked');
 
-if(!quantidade || !massa){
-alert("Escolha opções");
-return;
-}
+if(!qtd || !massa) return alert("Escolha quantidade e massa");
+
+let extras=[...document.querySelectorAll('.extra:checked')].map(i=>i.value);
+let ingredientes=[...document.querySelectorAll('.ing:checked')].map(i=>i.value);
+let molhos=[...document.querySelectorAll('.molho:checked')].map(i=>i.value);
+let final=[...document.querySelectorAll('.final:checked')].map(i=>i.value);
+
+let preco=Number(qtd.dataset.preco || 0);
+if(turbo && turbo.dataset.preco) preco+=Number(turbo.dataset.preco);
 
 let item={
-nome:`🍝 Massa - ${quantidade.value} - ${massa.value}`,
-preco:Number(quantidade.dataset.preco || 0)
+nome:`🍝 Massa ${qtd.value} - ${massa.value}
+Extras: ${extras.join(", ")}
+Ingredientes: ${ingredientes.join(", ")}
+Molhos: ${molhos.join(", ")}
+Final: ${final.join(", ")}`,
+preco:preco
 };
 
 let carrinho=getCarrinho();
@@ -143,29 +217,23 @@ carrinho.push(item);
 
 salvarCarrinho(carrinho);
 renderCarrinho();
-
-alert("Adicionado!");
 }
 
 function renderCarrinho(){
 
-let carrinho=getCarrinho();
+let c=getCarrinho();
 let div=document.getElementById("carrinho");
 
-if(carrinho.length===0){
-div.innerHTML="Carrinho vazio";
-return;
-}
+if(c.length===0) return div.innerHTML="Vazio";
 
 div.innerHTML="";
 
-carrinho.forEach((item,i)=>{
+c.forEach((i,index)=>{
 div.innerHTML+=`
 <div class="item">
-<span>${item.nome} - R$ ${item.preco.toFixed(2)}</span>
-<button class="remover" onclick="remover(${i})">X</button>
-</div>
-`;
+<span>${i.nome} - R$ ${i.preco.toFixed(2)}</span>
+<button class="remover" onclick="remover(${index})">X</button>
+</div>`;
 });
 }
 
@@ -176,31 +244,21 @@ salvarCarrinho(c);
 renderCarrinho();
 }
 
-/* FINALIZAR UNIVERSAL */
 function finalizarPedido(){
 
 let carrinho=getCarrinho();
+if(carrinho.length===0) return alert("Carrinho vazio");
 
-if(carrinho.length===0){
-alert("Carrinho vazio");
-return;
-}
-
-let texto="🛒 NOVO PEDIDO%0A%0A";
+let texto="🛒 PEDIDO MASSAS%0A%0A";
 let total=0;
 
 carrinho.forEach(i=>{
 texto+=i.nome;
-
-if(i.preco){
-texto+=" - R$ "+i.preco.toFixed(2);
+texto+=` - R$ ${i.preco.toFixed(2)}%0A`;
 total+=i.preco;
-}
-
-texto+="%0A";
 });
 
-texto+="%0A💰 TOTAL: R$ "+total.toFixed(2);
+texto+=`%0ATOTAL: R$ ${total.toFixed(2)}`;
 
 window.open("https://wa.me/5588999031455?text="+texto,"_blank");
 }
@@ -210,4 +268,4 @@ window.onload=renderCarrinho;
 </script>
 
 </body>
-</html></html>
+</html></html></html>
