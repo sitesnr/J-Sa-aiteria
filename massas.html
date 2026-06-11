@@ -7,14 +7,8 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
 background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
@@ -23,15 +17,9 @@ color:white;
 padding:20px;
 }
 
-.container{
-max-width:700px;
-margin:auto;
-}
+.container{max-width:700px;margin:auto;}
 
-h1,h2{
-text-align:center;
-margin:20px 0;
-}
+h1,h2{text-align:center;margin:20px 0;}
 
 .bloco{
 background:rgba(255,255,255,.08);
@@ -53,24 +41,6 @@ font-weight:600;
 margin-top:20px;
 }
 
-#resumo{
-display:none;
-background:white;
-color:#333;
-padding:20px;
-border-radius:15px;
-margin-top:20px;
-}
-
-input[type="checkbox"],
-input[type="radio"]{
-width:26px;
-height:26px;
-margin-right:12px;
-cursor:pointer;
-accent-color:#00ff4c;
-}
-
 label{
 display:flex;
 align-items:center;
@@ -87,50 +57,14 @@ border:2px solid #00ff4c;
 background:rgba(0,255,76,0.08);
 }
 
-.ticket{
-background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
-padding:20px;
-border-radius:20px;
-color:white;
-margin-top:20px;
-}
-
-.card{
-background:white;
-color:#333;
-border-radius:15px;
-padding:20px;
-margin-top:15px;
-}
-
-.topo{text-align:center;}
-
-.total{
-text-align:center;
-margin-top:15px;
-font-size:22px;
-color:#5B178A;
-}
-
-.verde{
-background:#25D366;
-color:white;
-margin-top:15px;
-}
-
-.roxo{
-background:#6A0DAD;
-color:white;
-}
-
-#carrinhoBox{
+#carrinho{
 background:rgba(255,255,255,.12);
-padding:15px;
-border-radius:15px;
-margin-top:20px;
+padding:10px;
+border-radius:12px;
+margin-top:10px;
 }
 
-.itemCarrinho{
+.item{
 display:flex;
 justify-content:space-between;
 padding:8px;
@@ -141,8 +75,8 @@ border-bottom:1px solid rgba(255,255,255,.2);
 background:red;
 color:white;
 border:none;
+padding:5px 8px;
 border-radius:8px;
-padding:5px 10px;
 cursor:pointer;
 }
 </style>
@@ -155,145 +89,68 @@ cursor:pointer;
 <h1>🍝 MONTE SUA MASSA</h1>
 
 <div class="bloco">
-<h2>PASSO 1</h2>
-<label><input type="radio" name="camarao" value="Não"> Não sou alérgico</label>
-<label><input type="radio" name="camarao" value="Sim"> Adicional de camarão (+R$10)</label>
-</div>
 
-<div class="bloco">
-<h2>PASSO 2 - QUANTIDADE</h2>
+<h2>QUANTIDADE</h2>
 <label><input type="radio" name="quantidade" value="450G" data-preco="14.90"> 450G - R$14,90</label>
 <label><input type="radio" name="quantidade" value="900G" data-preco="27.90"> 900G - R$27,90</label>
-</div>
 
-<div class="bloco">
-<h2>PASSO 3 - MASSA</h2>
+<h2>MASSA</h2>
 <label><input type="radio" name="massa" value="Espaguete"> Espaguete</label>
 <label><input type="radio" name="massa" value="Fettuccine"> Fettuccine</label>
 <label><input type="radio" name="massa" value="Penne"> Penne</label>
-<label><input type="radio" name="massa" value="Parafuso"> Parafuso</label>
-</div>
 
-<div class="bloco">
-<h2>PASSO 4 - INGREDIENTES (MÁXIMO 6)</h2>
-<label><input type="checkbox" class="ingrediente" value="Azeitona"> Azeitona</label>
-<label><input type="checkbox" class="ingrediente" value="Brócolis"> Brócolis</label>
-<label><input type="checkbox" class="ingrediente" value="Bacon"> Bacon</label>
-<label><input type="checkbox" class="ingrediente" value="Calabresa"> Calabresa</label>
-<label><input type="checkbox" class="ingrediente" value="Carne Moída"> Carne Moída</label>
-<label><input type="checkbox" class="ingrediente" value="Carne de Sol"> Carne de Sol</label>
-<label><input type="checkbox" class="ingrediente" value="Cebola"> Cebola</label>
-<label><input type="checkbox" class="ingrediente" value="Pimentão"> Pimentão</label>
-<label><input type="checkbox" class="ingrediente" value="Ervilha"> Ervilha</label>
-<label><input type="checkbox" class="ingrediente" value="Frango"> Frango</label>
-<label><input type="checkbox" class="ingrediente" value="Milho"> Milho</label>
-<label><input type="checkbox" class="ingrediente" value="Ovo de Codorna"> Ovo de Codorna</label>
-<label><input type="checkbox" class="ingrediente" value="Palmito"> Palmito</label>
-<label><input type="checkbox" class="ingrediente" value="Presunto"> Presunto</label>
-<label><input type="checkbox" class="ingrediente" value="Queijo Mussarela"> Queijo Mussarela</label>
-<label><input type="checkbox" class="ingrediente" value="Queijo Coalho"> Queijo Coalho</label>
-<label><input type="checkbox" class="ingrediente" value="Tomate"> Tomate</label>
-<label><input type="checkbox" class="ingrediente" value="Uva Passas"> Uva Passas</label>
-<label><input type="checkbox" class="ingrediente" value="Batata Palha"> Batata Palha</label>
-</div>
-
-<div class="bloco">
-<h2>PASSO 5 - MOLHOS (ATÉ 3)</h2>
-<label><input type="checkbox" class="molho" value="Molho Branco"> Molho Branco</label>
-<label><input type="checkbox" class="molho" value="Bolonhesa"> Bolonhesa</label>
-<label><input type="checkbox" class="molho" value="Molho de Tomate"> Molho de Tomate</label>
-<label><input type="checkbox" class="molho" value="Sem Molho"> Sem Molho</label>
-</div>
-
-<div class="bloco">
-<h2>PASSO 6 - FINALIZAÇÃO</h2>
-<label><input type="checkbox" class="finalizacao" value="Cheiro Verde"> Cheiro Verde</label>
-<label><input type="checkbox" class="finalizacao" value="Manjericão"> Manjericão</label>
-<label><input type="checkbox" class="finalizacao" value="Orégano"> Orégano</label>
-<label><input type="checkbox" class="finalizacao" value="Queijo Ralado"> Queijo Ralado</label>
-<label><input type="checkbox" class="finalizacao" value="Pimenta Calabresa"> Pimenta Calabresa</label>
-</div>
-
-<div class="bloco">
-<h2>TURBINAR (+R$3,00)</h2>
-<label><input type="radio" name="turbinar" value="Sim"> Sim</label>
-<label><input type="radio" name="turbinar" value="Não" checked> Não</label>
 </div>
 
 <div class="bloco">
 <h2>🛒 CARRINHO</h2>
 <div id="carrinho"></div>
+
 <button class="botao" onclick="adicionarCarrinho()">➕ ADICIONAR AO CARRINHO</button>
 </div>
 
 <button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
 
-<div id="ticketArea" style="display:none;">
-<div id="ticket" class="ticket">
-
-<div style="text-align:center;margin-bottom:15px;">
-<img src="logo.jpg" style="width:130px;border-radius:15px;">
-</div>
-
-<div class="topo">
-<h2>🍝 PEDIDO FINALIZADO!</h2>
-</div>
-
-<div class="card">
-<h3>J&S AÇAITERIA</h3>
-<p id="pedidoId"></p>
-<div id="conteudoTicket"></div>
-<h2 class="total" id="totalTicket"></h2>
-</div>
-
-</div>
-
-<button class="botao verde" onclick="enviarWhatsApp()">📲 WhatsApp</button>
-<button class="botao roxo" onclick="baixarImagem()">⬇️ Baixar imagem</button>
-</div>
-
 </div>
 
 <script>
 
-/* CARRINHO GLOBAL */
 function getCarrinho(){
 return JSON.parse(localStorage.getItem("carrinho")) || [];
 }
+
 function salvarCarrinho(c){
 localStorage.setItem("carrinho", JSON.stringify(c));
 }
 
-/* ADD CARRINHO */
+/* ➕ ADD UNIVERSAL */
 function adicionarCarrinho(){
 
 let quantidade=document.querySelector('input[name="quantidade"]:checked');
-if(!quantidade){alert("Escolha quantidade");return;}
-
 let massa=document.querySelector('input[name="massa"]:checked');
-if(!massa){alert("Escolha massa");return;}
 
-let camarao=document.querySelector('input[name="camarao"]:checked');
-camarao = camarao ? camarao.value : "Não";
+if(!quantidade || !massa){
+alert("Escolha opções");
+return;
+}
 
-let ingredientes=[...document.querySelectorAll('.ingrediente:checked')].map(i=>i.value);
-let molhos=[...document.querySelectorAll('.molho:checked')].map(i=>i.value);
-let finalizacao=[...document.querySelectorAll('.finalizacao:checked')].map(i=>i.value);
+let item={
+nome:`🍝 Massa - ${quantidade.value} - ${massa.value}`,
+preco:Number(quantidade.dataset.preco || 0)
+};
 
-let item = `🍝 MASSA - ${quantidade.value} - ${massa.value} - Ingredientes: ${ingredientes.join(", ")} - Molhos: ${molhos.join(", ")} - Finalização: ${finalizacao.join(", ")} - Camarão: ${camarao}`;
-
-let carrinho = getCarrinho();
+let carrinho=getCarrinho();
 carrinho.push(item);
-salvarCarrinho(carrinho);
 
+salvarCarrinho(carrinho);
 renderCarrinho();
+
 alert("Adicionado!");
 }
 
-/* RENDER */
 function renderCarrinho(){
-let div=document.getElementById("carrinho");
+
 let carrinho=getCarrinho();
+let div=document.getElementById("carrinho");
 
 if(carrinho.length===0){
 div.innerHTML="Carrinho vazio";
@@ -301,69 +158,56 @@ return;
 }
 
 div.innerHTML="";
+
 carrinho.forEach((item,i)=>{
 div.innerHTML+=`
-<div style="display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid rgba(255,255,255,.2);">
-<span>${item}</span>
-<button onclick="removerItem(${i})" class="remover">X</button>
-</div>`;
+<div class="item">
+<span>${item.nome} - R$ ${item.preco.toFixed(2)}</span>
+<button class="remover" onclick="remover(${i})">X</button>
+</div>
+`;
 });
 }
 
-function removerItem(i){
-let carrinho=getCarrinho();
-carrinho.splice(i,1);
-salvarCarrinho(carrinho);
+function remover(i){
+let c=getCarrinho();
+c.splice(i,1);
+salvarCarrinho(c);
 renderCarrinho();
 }
 
-/* FINALIZAR PEDIDO GLOBAL (AQUI É A MUDANÇA IMPORTANTE) */
+/* FINALIZAR UNIVERSAL */
 function finalizarPedido(){
 
-let carrinho = getCarrinho();
+let carrinho=getCarrinho();
 
 if(carrinho.length===0){
-alert("Carrinho vazio!");
+alert("Carrinho vazio");
 return;
 }
 
-let id=Math.floor(Math.random()*9000)+1000;
+let texto="🛒 NOVO PEDIDO%0A%0A";
+let total=0;
 
-let textoItens = carrinho.map(i=>"• "+i).join("\n");
+carrinho.forEach(i=>{
+texto+=i.nome;
 
-document.getElementById("pedidoId").innerText="PEDIDO #"+id;
-
-document.getElementById("conteudoTicket").innerText = textoItens;
-
-document.getElementById("totalTicket").innerText =
-"ITENS NO PEDIDO: "+carrinho.length;
-
-document.getElementById("ticketArea").style.display="block";
-
-window.scrollTo(0,document.body.scrollHeight);
+if(i.preco){
+texto+=" - R$ "+i.preco.toFixed(2);
+total+=i.preco;
 }
 
-/* WhatsApp */
-function enviarWhatsApp(){
-let texto = document.getElementById("conteudoTicket").innerText;
-window.open("https://wa.me/5588999031455?text="+encodeURIComponent(texto));
-}
-
-/* imagem */
-function baixarImagem(){
-html2canvas(document.getElementById("ticket")).then(canvas=>{
-let a=document.createElement("a");
-a.href=canvas.toDataURL();
-a.download="pedido.png";
-a.click();
+texto+="%0A";
 });
+
+texto+="%0A💰 TOTAL: R$ "+total.toFixed(2);
+
+window.open("https://wa.me/5588999031455?text="+texto,"_blank");
 }
+
+window.onload=renderCarrinho;
 
 </script>
 
 </body>
-</html></script>
-
-</body>
-</html></body>
-</html>
+</html></html>
