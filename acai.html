@@ -65,6 +65,16 @@ border:2px solid #00ff4c;
 background:rgba(0,255,76,0.08);
 }
 
+.inputValor{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+font-size:16px;
+outline:none;
+}
+
 #carrinho{
 background:rgba(255,255,255,.12);
 padding:10px;
@@ -96,12 +106,12 @@ cursor:pointer;
 
 <h1>🍧 MONTE SEU AÇAÍ</h1>
 
-<!-- TAMANHOS -->
+<!-- TAMANHOS (SEM PREÇO VISÍVEL) -->
 <div class="bloco">
 <h2>TAMANHOS</h2>
-<label><input type="radio" name="tamanho" value="300ml" data-preco="10"> 300ml — R$10</label>
-<label><input type="radio" name="tamanho" value="400ml" data-preco="13"> 400ml — R$13</label>
-<label><input type="radio" name="tamanho" value="500ml" data-preco="16"> 500ml — R$16</label>
+<label><input type="radio" name="tamanho" value="300ml" data-preco="10"> 300ml</label>
+<label><input type="radio" name="tamanho" value="400ml" data-preco="13"> 400ml</label>
+<label><input type="radio" name="tamanho" value="500ml" data-preco="16"> 500ml</label>
 </div>
 
 <!-- BASE -->
@@ -110,9 +120,15 @@ cursor:pointer;
 <label><input type="radio" name="base" value="Tradicional"> Tradicional</label>
 </div>
 
-<!-- COMPLEMENTOS (RESTAURADO COMPLETO) -->
+<!-- VALOR PERSONALIZADO (NOVO) -->
 <div class="bloco">
-<h2>CREMES E FRUTAS</h2>
+<h2>💰 VALOR PERSONALIZADO</h2>
+<input id="valorAcai" class="inputValor" type="number" placeholder="Digite o valor do açaí (ex: 12.00)">
+</div>
+
+<!-- INGREDIENTES COMPLETOS -->
+<div class="bloco">
+<h2>CREMES E COMPLEMENTOS</h2>
 
 <label><input type="checkbox" class="ing" value="Maracujá"> Maracujá</label>
 <label><input type="checkbox" class="ing" value="Cupuaçu"> Cupuaçu</label>
@@ -122,10 +138,6 @@ cursor:pointer;
 <label><input type="checkbox" class="ing" value="Banana"> Banana</label>
 <label><input type="checkbox" class="ing" value="Morango"> Morango</label>
 <label><input type="checkbox" class="ing" value="Kiwi"> Kiwi</label>
-</div>
-
-<div class="bloco">
-<h2>TOPPINGS</h2>
 
 <label><input type="checkbox" class="ing" value="Chocowafer preto"> Chocowafer preto</label>
 <label><input type="checkbox" class="ing" value="Chocowafer branco"> Chocowafer branco</label>
@@ -134,7 +146,7 @@ cursor:pointer;
 <label><input type="checkbox" class="ing" value="Jujuba"> Jujuba</label>
 <label><input type="checkbox" class="ing" value="Granola"> Granola</label>
 <label><input type="checkbox" class="ing" value="Sucrilhos"> Sucrilhos</label>
-<label><input type="checkbox" class="ing" value="MMs"> MMs</label>
+<label><input type="checkbox" class="ing" value="M&Ms"> M&Ms</label>
 <label><input type="checkbox" class="ing" value="Marshmallow"> Marshmallow</label>
 <label><input type="checkbox" class="ing" value="Paçoca"> Paçoca</label>
 <label><input type="checkbox" class="ing" value="Leite em pó"> Leite em pó</label>
@@ -149,6 +161,7 @@ cursor:pointer;
 <div id="carrinho"></div>
 
 <button class="botao" onclick="adicionarCarrinho()">➕ ADICIONAR AO CARRINHO</button>
+<button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
 </div>
 
 </div>
@@ -164,14 +177,20 @@ function salvarCarrinho(c){
 localStorage.setItem("carrinho", JSON.stringify(c));
 }
 
-/* ADD */
+/* ADICIONAR */
 function adicionarCarrinho(){
 
 let tamanho=document.querySelector('input[name="tamanho"]:checked');
 let base=document.querySelector('input[name="base"]:checked');
+let valor=document.getElementById("valorAcai").value;
 
 if(!tamanho || !base){
 alert("Escolha tamanho e base");
+return;
+}
+
+if(!valor || valor<=0){
+alert("Digite o valor do açaí");
 return;
 }
 
@@ -179,7 +198,7 @@ let ingredientes=[...document.querySelectorAll('.ing:checked')].map(i=>i.value);
 
 let item={
 nome:`🍧 Açaí ${tamanho.value} - ${base.value} - ${ingredientes.join(", ")}`,
-preco:Number(tamanho.dataset.preco || 0)
+preco:Number(valor)
 };
 
 let carrinho=getCarrinho();
@@ -222,9 +241,38 @@ salvarCarrinho(c);
 renderCarrinho();
 }
 
+/* FINALIZAR */
+function finalizarPedido(){
+
+let carrinho=getCarrinho();
+
+if(carrinho.length===0){
+alert("Carrinho vazio");
+return;
+}
+
+let texto="🛒 NOVO PEDIDO%0A%0A";
+let total=0;
+
+carrinho.forEach(i=>{
+texto+=i.nome;
+
+if(i.preco){
+texto+=" - R$ "+i.preco.toFixed(2);
+total+=i.preco;
+}
+
+texto+="%0A";
+});
+
+texto+="%0A💰 TOTAL: R$ "+total.toFixed(2);
+
+window.open("https://wa.me/5588999031455?text="+texto,"_blank");
+}
+
 window.onload=renderCarrinho;
 
 </script>
 
 </body>
-</html></html></html></html></html>
+</html></html></html></html></html></html>
