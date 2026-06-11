@@ -246,38 +246,40 @@ renderCarrinho();
 
 function finalizarPedido(){
 
-let carrinho=getCarrinho();
+let carrinho = getCarrinho();
 
-if(carrinho.length===0){
+if(carrinho.length === 0){
 alert("Carrinho vazio");
 return;
 }
 
-let texto="🛒 PEDIDO MASSAS%0A%0A";
-let total=0;
+let texto = "🛒 PEDIDO MASSAS%0A%0A";
+let total = 0;
 
 carrinho.forEach(i=>{
-texto+=i.nome;
-texto+=` - R$ ${i.preco.toFixed(2)}%0A`;
-total+=i.preco;
+texto += i.nome;
+texto += ` - R$ ${i.preco.toFixed(2)}%0A`;
+total += i.preco;
 });
 
-texto+=`%0ATOTAL: R$ ${total.toFixed(2)}`;
+texto += `%0ATOTAL: R$ ${total.toFixed(2)}`;
 
-/* LIMPA PRIMEIRO */
+window.open(
+"https://wa.me/5588999031455?text=" + texto,
+"_blank"
+);
+
+/* LIMPA O CARRINHO */
 localStorage.removeItem("carrinho");
 renderCarrinho();
 
-/* DESMARCA TUDO */
+/* DESMARCA TODOS OS CAMPOS */
 document.querySelectorAll("input").forEach(input=>{
-input.checked=false;
+input.checked = false;
 });
 
-/* ABRE O WHATSAPP */
-window.open(
-"https://wa.me/5588999031455?text="+texto,
-"_blank"
-);
+/* ATUALIZA A TELA */
+renderCarrinho();
 
 alert("Pedido enviado com sucesso!");
 }
