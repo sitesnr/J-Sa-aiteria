@@ -8,11 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
 background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
@@ -21,15 +17,9 @@ color:white;
 padding:20px;
 }
 
-.container{
-max-width:700px;
-margin:auto;
-}
+.container{max-width:700px;margin:auto;}
 
-h1,h2{
-text-align:center;
-margin:20px 0;
-}
+h1,h2{text-align:center;margin:20px 0;}
 
 .bloco{
 background:rgba(255,255,255,.08);
@@ -67,7 +57,6 @@ border:2px solid #00ff4c;
 background:rgba(0,255,76,0.08);
 }
 
-/* CARRINHO GLOBAL */
 #carrinho{
 background:rgba(255,255,255,.12);
 padding:10px;
@@ -90,29 +79,6 @@ padding:5px 8px;
 border-radius:8px;
 cursor:pointer;
 }
-
-/* TICKET */
-.ticket{
-background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
-padding:20px;
-border-radius:20px;
-margin-top:20px;
-}
-
-.card{
-background:white;
-color:#333;
-padding:20px;
-border-radius:15px;
-margin-top:15px;
-}
-
-.total{
-text-align:center;
-font-size:22px;
-color:#5B178A;
-margin-top:15px;
-}
 </style>
 </head>
 
@@ -125,30 +91,31 @@ margin-top:15px;
 <div class="bloco">
 <h2>ESCOLHA SEU CUSCUZ</h2>
 
-<label><input type="radio" name="cuscuz" value="Ovo - R$8" data-preco="8"> Ovo</label>
-<label><input type="radio" name="cuscuz" value="Calabresa - R$8" data-preco="8"> Calabresa</label>
-<label><input type="radio" name="cuscuz" value="Carne Moída - R$8" data-preco="8"> Carne Moída</label>
-<label><input type="radio" name="cuscuz" value="Frango - R$8" data-preco="8"> Frango</label>
-<label><input type="radio" name="cuscuz" value="Carne de Sol - R$13" data-preco="13"> Carne de Sol</label>
+<!-- COLUNA 1 -->
+<label><input type="radio" name="cuscuz" value="Ovo" data-preco="8"> Ovo — R$ 8</label>
+<label><input type="radio" name="cuscuz" value="Calabresa" data-preco="8"> Calabresa — R$ 8</label>
+<label><input type="radio" name="cuscuz" value="Carne Moída" data-preco="8"> Carne Moída — R$ 8</label>
+<label><input type="radio" name="cuscuz" value="Frango" data-preco="8"> Frango — R$ 8</label>
+<label><input type="radio" name="cuscuz" value="Carne de Sol" data-preco="13"> Carne de Sol — R$ 13</label>
 
-<label><input type="radio" name="cuscuz" value="Ovo + Frango - R$10" data-preco="10"> Ovo + Frango</label>
-<label><input type="radio" name="cuscuz" value="Frango + Calabresa - R$10" data-preco="10"> Frango + Calabresa</label>
-<label><input type="radio" name="cuscuz" value="Ovo + Carne Moída - R$10" data-preco="10"> Ovo + Carne Moída</label>
+<label><input type="radio" name="cuscuz" value="Ovo + Frango" data-preco="10"> Ovo, Frango — R$ 10</label>
+<label><input type="radio" name="cuscuz" value="Frango + Calabresa" data-preco="10"> Frango, Calabresa — R$ 10</label>
+<label><input type="radio" name="cuscuz" value="Ovo + Carne Moída" data-preco="10"> Ovo, Carne Moída — R$ 10</label>
+<label><input type="radio" name="cuscuz" value="Ovo + Carne Moída + Frango" data-preco="11"> Ovo, Carne Moída e Frango — R$ 11</label>
+<label><input type="radio" name="cuscuz" value="Carne Moída + Frango + Calabresa" data-preco="11"> Carne Moída, Frango e Calabresa — R$ 11</label>
 
-<label><input type="radio" name="cuscuz" value="Ovo + Carne Moída + Frango - R$11" data-preco="11"> Ovo + Carne Moída + Frango</label>
-<label><input type="radio" name="cuscuz" value="Carne Moída + Frango + Calabresa - R$11" data-preco="11"> Carne Moída + Frango + Calabresa</label>
-
-<label><input type="radio" name="cuscuz" value="Especial 2 - R$8" data-preco="8"> Mussarela, milho, azeitona, orégano, requeijão</label>
-<label><input type="radio" name="cuscuz" value="Especial 3 - R$10" data-preco="10"> Calabresa, mussarela, milho, azeitona, orégano, requeijão</label>
-<label><input type="radio" name="cuscuz" value="Especial 4 - R$12" data-preco="12"> Carne Moída, mussarela, milho, azeitona, orégano, requeijão</label>
-<label><input type="radio" name="cuscuz" value="Especial 5 - R$14" data-preco="14"> Ovo, mussarela, milho, azeitona, orégano, requeijão</label>
-<label><input type="radio" name="cuscuz" value="Especial 6 - R$13" data-preco="13"> Frango, mussarela, milho, azeitona, orégano, requeijão</label>
-<label><input type="radio" name="cuscuz" value="Especial 7 - R$15" data-preco="15"> Carne de Sol, mussarela, milho, azeitona, orégano, requeijão</label>
+<!-- COLUNA 2 -->
+<label><input type="radio" name="cuscuz" value="Especial 2" data-preco="8"> Mussarela, milho, azeitona, orégano, requeijão — R$ 8</label>
+<label><input type="radio" name="cuscuz" value="Especial 3" data-preco="10"> Calabresa, mussarela, milho, azeitona, orégano, requeijão — R$ 10</label>
+<label><input type="radio" name="cuscuz" value="Especial 4" data-preco="12"> Carne Moída, mussarela, milho, azeitona, orégano, requeijão — R$ 12</label>
+<label><input type="radio" name="cuscuz" value="Especial 5" data-preco="14"> Ovo, mussarela, milho, azeitona, orégano, requeijão — R$ 14</label>
+<label><input type="radio" name="cuscuz" value="Especial 6" data-preco="13"> Frango, mussarela, milho, azeitona, orégano, requeijão — R$ 13</label>
+<label><input type="radio" name="cuscuz" value="Especial 7" data-preco="15"> Carne de Sol, mussarela, milho, azeitona, orégano, requeijão — R$ 15</label>
 
 </div>
 
 <div class="bloco">
-<h2>🛒 CARRINHO GLOBAL</h2>
+<h2>🛒 CARRINHO</h2>
 <div id="carrinho"></div>
 
 <button class="botao" onclick="adicionarCarrinho()">➕ ADICIONAR AO CARRINHO</button>
@@ -156,22 +123,10 @@ margin-top:15px;
 
 <button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
 
-<div id="ticketArea" style="display:none;">
-  <div class="ticket">
-    <h2 style="text-align:center;">🌽 PEDIDO FINALIZADO</h2>
-
-    <div class="card">
-      <div id="conteudoTicket"></div>
-      <h2 class="total" id="totalTicket"></h2>
-    </div>
-  </div>
-</div>
-
 </div>
 
 <script>
 
-/* ===== CARRINHO GLOBAL ===== */
 function getCarrinho(){
 return JSON.parse(localStorage.getItem("carrinho")) || [];
 }
@@ -180,81 +135,89 @@ function salvarCarrinho(c){
 localStorage.setItem("carrinho", JSON.stringify(c));
 }
 
-/* ADICIONAR */
 function adicionarCarrinho(){
 
-let itemEscolhido = document.querySelector('input[name="cuscuz"]:checked');
+let itemEscolhido=document.querySelector('input[name="cuscuz"]:checked');
 
 if(!itemEscolhido){
 alert("Escolha um cuscuz");
 return;
 }
 
-let item = "🌽 Cuscuz - " + itemEscolhido.value;
+let item={
+nome:"🌽 Cuscuz - "+itemEscolhido.value,
+preco:Number(itemEscolhido.dataset.preco || 0)
+};
 
-let carrinho = getCarrinho();
+let carrinho=getCarrinho();
 carrinho.push(item);
-salvarCarrinho(carrinho);
 
+salvarCarrinho(carrinho);
 renderCarrinho();
+
 alert("Adicionado ao carrinho!");
 }
 
-/* RENDER CARRINHO GLOBAL */
 function renderCarrinho(){
 
-let carrinho = getCarrinho();
-let div = document.getElementById("carrinho");
+let carrinho=getCarrinho();
+let div=document.getElementById("carrinho");
 
-if(carrinho.length === 0){
-div.innerHTML = "Carrinho vazio";
+if(carrinho.length===0){
+div.innerHTML="Carrinho vazio";
 return;
 }
 
-div.innerHTML = "";
+div.innerHTML="";
 
-carrinho.forEach((item,index)=>{
-div.innerHTML += `
+carrinho.forEach((item,i)=>{
+div.innerHTML+=`
 <div class="item">
-<span>${item}</span>
-<button class="remover" onclick="remover(${index})">X</button>
+<span>${item.nome} - R$ ${item.preco.toFixed(2)}</span>
+<button class="remover" onclick="remover(${i})">X</button>
 </div>
 `;
 });
 }
 
-function remover(index){
-let carrinho = getCarrinho();
-carrinho.splice(index,1);
-salvarCarrinho(carrinho);
+function remover(i){
+let c=getCarrinho();
+c.splice(i,1);
+salvarCarrinho(c);
 renderCarrinho();
 }
 
-/* FINALIZAR (MOSTRA TODOS OS PRODUTOS DO CARRINHO GLOBAL) */
 function finalizarPedido(){
 
-let carrinho = getCarrinho();
+let carrinho=getCarrinho();
 
-if(carrinho.length === 0){
+if(carrinho.length===0){
 alert("Carrinho vazio");
 return;
 }
 
-let totalTexto = carrinho.map(i => "• " + i).join("<br>");
+let texto="🛒 NOVO PEDIDO%0A%0A";
+let total=0;
 
-document.getElementById("conteudoTicket").innerHTML = `
-<h3>SEU PEDIDO:</h3>
-${totalTexto}
-`;
+carrinho.forEach(i=>{
+texto+=i.nome;
 
-document.getElementById("totalTicket").innerText = "VERIFIQUE O CARRINHO";
-
-document.getElementById("ticketArea").style.display = "block";
+if(i.preco){
+texto+=" - R$ "+i.preco.toFixed(2);
+total+=i.preco;
 }
 
-window.onload = renderCarrinho;
+texto+="%0A";
+});
+
+texto+="%0A💰 TOTAL: R$ "+total.toFixed(2);
+
+window.open("https://wa.me/5588999031455?text="+texto,"_blank");
+}
+
+window.onload=renderCarrinho;
 
 </script>
 
 </body>
-</html></html></html>
+</html></html></html></html>
