@@ -8,11 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
 background:linear-gradient(135deg,#4B0082,#6A0DAD,#2E8B57);
@@ -21,15 +17,9 @@ color:white;
 padding:20px;
 }
 
-.container{
-max-width:700px;
-margin:auto;
-}
+.container{max-width:700px;margin:auto;}
 
-h1,h2{
-text-align:center;
-margin:20px 0;
-}
+h1,h2{text-align:center;margin:20px 0;}
 
 .bloco{
 background:rgba(255,255,255,.08);
@@ -65,6 +55,17 @@ transition:0.2s;
 label:has(input:checked){
 border:2px solid #00ff4c;
 background:rgba(0,255,76,0.08);
+}
+
+/* INPUT NOVO */
+.inputValor{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:none;
+margin-top:10px;
+font-size:16px;
+outline:none;
 }
 
 #carrinho{
@@ -105,11 +106,12 @@ cursor:pointer;
 <label><input type="checkbox" class="sabor" value="Chocolate"> Chocolate</label>
 <label><input type="checkbox" class="sabor" value="Menta"> Menta</label>
 <label><input type="checkbox" class="sabor" value="Flocos"> Flocos</label>
-<label><input type="checkbox" class="sabor" value="Creme com passas"> Creme com passas</label>
 <label><input type="checkbox" class="sabor" value="Nutella"> Nutella</label>
-<label><input type="checkbox" class="sabor" value="Menta com chocolate"> Menta com chocolate</label>
-<label><input type="checkbox" class="sabor" value="Chiclete"> Chiclete</label>
+</div>
 
+<div class="bloco">
+<h2>💰 VALOR PERSONALIZADO</h2>
+<input id="valorSorvete" class="inputValor" type="number" placeholder="Digite o valor do sorvete (ex: 10.00)">
 </div>
 
 <div class="bloco">
@@ -125,70 +127,79 @@ cursor:pointer;
 
 <script>
 
-/* ===== CARRINHO GLOBAL COMPARTILHADO ===== */
-
+/* CARRINHO GLOBAL */
 function getCarrinho(){
 return JSON.parse(localStorage.getItem("carrinho")) || [];
 }
 
-function salvarCarrinho(carrinho){
-localStorage.setItem("carrinho", JSON.stringify(carrinho));
+function salvarCarrinho(c){
+localStorage.setItem("carrinho", JSON.stringify(c));
 }
 
 /* ADICIONAR */
 function adicionarCarrinho(){
 
-let sabores = [...document.querySelectorAll('.sabor:checked')].map(i=>i.value);
+let sabores=[...document.querySelectorAll('.sabor:checked')].map(i=>i.value);
+let valor=document.getElementById("valorSorvete").value;
 
-if(sabores.length === 0){
+if(sabores.length===0){
 alert("Escolha pelo menos 1 sabor");
 return;
 }
 
-let item = "🍦 Sorvete - Sabores: " + sabores.join(", ");
+if(!valor || valor<=0){
+alert("Digite o valor do sorvete");
+return;
+}
 
-let carrinho = getCarrinho();
+let item={
+nome:"🍦 Sorvete - "+sabores.join(", "),
+preco:Number(valor)
+};
+
+let carrinho=getCarrinho();
 carrinho.push(item);
-salvarCarrinho(carrinho);
 
+salvarCarrinho(carrinho);
 renderCarrinho();
+
 alert("Adicionado ao carrinho!");
 }
 
 /* RENDER */
 function renderCarrinho(){
 
-let carrinho = getCarrinho();
-let div = document.getElementById("carrinho");
+let carrinho=getCarrinho();
+let div=document.getElementById("carrinho");
 
-if(carrinho.length === 0){
-div.innerHTML = "Carrinho vazio";
+if(carrinho.length===0){
+div.innerHTML="Carrinho vazio";
 return;
 }
 
-div.innerHTML = "";
+div.innerHTML="";
 
-carrinho.forEach((item,index)=>{
-div.innerHTML += `
+carrinho.forEach((item,i)=>{
+div.innerHTML+=`
 <div class="item">
-<span>${item}</span>
-<button class="remover" onclick="remover(${index})">X</button>
+<span>${item.nome} - R$ ${item.preco.toFixed(2)}</span>
+<button class="remover" onclick="remover(${i})">X</button>
 </div>
 `;
 });
 }
 
 /* REMOVER */
-function remover(index){
-let carrinho = getCarrinho();
-carrinho.splice(index,1);
-salvarCarrinho(carrinho);
+function remover(i){
+let c=getCarrinho();
+c.splice(i,1);
+salvarCarrinho(c);
 renderCarrinho();
 }
 
-window.onload = renderCarrinho;
+window.onload=renderCarrinho;
 
 </script>
 
 </body>
-</html></html>
+</html></html></html>
