@@ -168,22 +168,24 @@ alert("Carrinho vazio!");
 return;
 }
 
-let texto = "🛒 *NOVO PEDIDO J&S AÇAITERIA*%0A%0A";
+let texto = "NOVO PEDIDO J&S AÇAITERIA\n\n";
 
 let total = 0;
 
 carrinho.forEach(item=>{
-texto += `➡ ${item.nome} - R$ ${item.preco.toFixed(2)}%0A`;
+texto += "- " + item.nome + " - R$ " + item.preco.toFixed(2) + "\n";
 total += Number(item.preco);
 });
 
-texto += `%0A💰 *TOTAL: R$ ${total.toFixed(2)}*`;
+texto += "\nTOTAL: R$ " + total.toFixed(2);
 
 let numero = "5588999031455";
 
-window.open(`https://wa.me/${numero}?text=${texto}`, "_blank");
+window.open(
+`https://wa.me/${numero}?text=${encodeURIComponent(texto)}`,
+"_blank"
+);
 
-/* LIMPA O CARRINHO APÓS ENVIAR */
 localStorage.removeItem("carrinho");
 render();
 
