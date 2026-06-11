@@ -6,7 +6,6 @@
 <title>Açaí - J&S Açaiteria</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -44,7 +43,8 @@ margin-top:20px;
 
 input[type="checkbox"],
 input[type="radio"]{
-width:26px;height:26px;
+width:26px;
+height:26px;
 margin-right:12px;
 accent-color:#00ff4c;
 }
@@ -65,18 +65,16 @@ border:2px solid #00ff4c;
 background:rgba(0,255,76,0.08);
 }
 
-/* CARRINHO */
-#carrinhoBox{
+#carrinho{
 background:rgba(255,255,255,.12);
-padding:15px;
-border-radius:15px;
-margin-top:20px;
+padding:10px;
+border-radius:12px;
+margin-top:10px;
 }
 
-.itemCarrinho{
+.item{
 display:flex;
 justify-content:space-between;
-margin:8px 0;
 padding:8px;
 border-bottom:1px solid rgba(255,255,255,.2);
 }
@@ -85,28 +83,10 @@ border-bottom:1px solid rgba(255,255,255,.2);
 background:red;
 color:white;
 border:none;
+padding:5px 8px;
 border-radius:8px;
-padding:5px 10px;
 cursor:pointer;
 }
-
-/* TICKET */
-.ticket{
-background:white;
-color:#333;
-padding:20px;
-border-radius:15px;
-}
-
-.total{
-text-align:center;
-margin-top:15px;
-font-size:22px;
-color:#5B178A;
-}
-
-.verde{background:#25D366;color:white;}
-.roxo{background:#6A0DAD;color:white;}
 </style>
 </head>
 
@@ -116,57 +96,66 @@ color:#5B178A;
 
 <h1>🍧 MONTE SEU AÇAÍ</h1>
 
+<!-- TAMANHOS -->
 <div class="bloco">
 <h2>TAMANHOS</h2>
-<label><input type="radio" name="tamanho" value="300ml"> 300ml</label>
-<label><input type="radio" name="tamanho" value="400ml"> 400ml</label>
-<label><input type="radio" name="tamanho" value="500ml"> 500ml</label>
+<label><input type="radio" name="tamanho" value="300ml" data-preco="10"> 300ml — R$10</label>
+<label><input type="radio" name="tamanho" value="400ml" data-preco="13"> 400ml — R$13</label>
+<label><input type="radio" name="tamanho" value="500ml" data-preco="16"> 500ml — R$16</label>
 </div>
 
+<!-- BASE -->
 <div class="bloco">
 <h2>BASE</h2>
 <label><input type="radio" name="base" value="Tradicional"> Tradicional</label>
 </div>
 
+<!-- COMPLEMENTOS (RESTAURADO COMPLETO) -->
 <div class="bloco">
-<h2>COMPLEMENTOS</h2>
+<h2>CREMES E FRUTAS</h2>
 
-<label><input type="checkbox" value="Ninho"> Ninho</label>
-<label><input type="checkbox" value="Morango"> Morango</label>
-<label><input type="checkbox" value="Banana"> Banana</label>
-<label><input type="checkbox" value="Granola"> Granola</label>
-<label><input type="checkbox" value="Leite em pó"> Leite em pó</label>
+<label><input type="checkbox" class="ing" value="Maracujá"> Maracujá</label>
+<label><input type="checkbox" class="ing" value="Cupuaçu"> Cupuaçu</label>
+<label><input type="checkbox" class="ing" value="Ninho"> Ninho</label>
+<label><input type="checkbox" class="ing" value="Pistache"> Pistache</label>
+
+<label><input type="checkbox" class="ing" value="Banana"> Banana</label>
+<label><input type="checkbox" class="ing" value="Morango"> Morango</label>
+<label><input type="checkbox" class="ing" value="Kiwi"> Kiwi</label>
+</div>
+
+<div class="bloco">
+<h2>TOPPINGS</h2>
+
+<label><input type="checkbox" class="ing" value="Chocowafer preto"> Chocowafer preto</label>
+<label><input type="checkbox" class="ing" value="Chocowafer branco"> Chocowafer branco</label>
+<label><input type="checkbox" class="ing" value="Tubetes"> Tubetes</label>
+<label><input type="checkbox" class="ing" value="Chocoball"> Chocoball</label>
+<label><input type="checkbox" class="ing" value="Jujuba"> Jujuba</label>
+<label><input type="checkbox" class="ing" value="Granola"> Granola</label>
+<label><input type="checkbox" class="ing" value="Sucrilhos"> Sucrilhos</label>
+<label><input type="checkbox" class="ing" value="MMs"> MMs</label>
+<label><input type="checkbox" class="ing" value="Marshmallow"> Marshmallow</label>
+<label><input type="checkbox" class="ing" value="Paçoca"> Paçoca</label>
+<label><input type="checkbox" class="ing" value="Leite em pó"> Leite em pó</label>
+<label><input type="checkbox" class="ing" value="Creme de avelã"> Creme de avelã</label>
+<label><input type="checkbox" class="ing" value="Gotas de chocolate"> Gotas de chocolate</label>
 
 </div>
+
+<!-- CARRINHO -->
+<div class="bloco">
+<h2>🛒 CARRINHO GLOBAL</h2>
+<div id="carrinho"></div>
 
 <button class="botao" onclick="adicionarCarrinho()">➕ ADICIONAR AO CARRINHO</button>
-
-<div id="carrinhoBox">
-<h2>🛒 CARRINHO</h2>
-<div id="carrinho"></div>
-</div>
-
-<button class="botao" onclick="finalizarPedido()">FINALIZAR PEDIDO</button>
-
-<div id="ticketArea" style="display:none;">
-
-<div class="ticket" id="ticket">
-<h2>🍧 PEDIDO FINALIZADO</h2>
-<div id="conteudoTicket"></div>
-<h2 class="total" id="totalTicket"></h2>
-</div>
-
-<button class="botao verde" onclick="enviarWhatsApp()">📲 WhatsApp</button>
-<button class="botao roxo" onclick="baixarImagem()">⬇️ Baixar imagem</button>
-
 </div>
 
 </div>
 
 <script>
 
-/* ================= CARRINHO UNIVERSAL ================= */
-
+/* CARRINHO GLOBAL */
 function getCarrinho(){
 return JSON.parse(localStorage.getItem("carrinho")) || [];
 }
@@ -175,7 +164,7 @@ function salvarCarrinho(c){
 localStorage.setItem("carrinho", JSON.stringify(c));
 }
 
-/* 🍧 ADICIONAR PADRÃO UNIVERSAL */
+/* ADD */
 function adicionarCarrinho(){
 
 let tamanho=document.querySelector('input[name="tamanho"]:checked');
@@ -186,17 +175,14 @@ alert("Escolha tamanho e base");
 return;
 }
 
-let ingredientes=[...document.querySelectorAll('input[type="checkbox"]:checked')]
-.map(i=>i.value);
+let ingredientes=[...document.querySelectorAll('.ing:checked')].map(i=>i.value);
 
-let nome = `🍧 Açaí ${tamanho.value} - ${base.value} - ${ingredientes.join(", ")}`;
-
-let item = {
-nome: nome,
-preco: 0
+let item={
+nome:`🍧 Açaí ${tamanho.value} - ${base.value} - ${ingredientes.join(", ")}`,
+preco:Number(tamanho.dataset.preco || 0)
 };
 
-let carrinho = getCarrinho();
+let carrinho=getCarrinho();
 carrinho.push(item);
 
 salvarCarrinho(carrinho);
@@ -205,16 +191,14 @@ renderCarrinho();
 alert("Adicionado ao carrinho!");
 }
 
-/* 🛒 RENDER */
+/* RENDER */
 function renderCarrinho(){
 
 let carrinho=getCarrinho();
 let div=document.getElementById("carrinho");
 
-if(!div) return;
-
 if(carrinho.length===0){
-div.innerHTML="Vazio";
+div.innerHTML="Carrinho vazio";
 return;
 }
 
@@ -222,15 +206,15 @@ div.innerHTML="";
 
 carrinho.forEach((item,i)=>{
 div.innerHTML+=`
-<div class="itemCarrinho">
-<span>${item.nome}</span>
+<div class="item">
+<span>${item.nome} - R$ ${item.preco.toFixed(2)}</span>
 <button class="remover" onclick="remover(${i})">X</button>
 </div>
 `;
 });
 }
 
-/* ❌ REMOVER */
+/* REMOVER */
 function remover(i){
 let c=getCarrinho();
 c.splice(i,1);
@@ -240,41 +224,7 @@ renderCarrinho();
 
 window.onload=renderCarrinho;
 
-/* 🧾 FINALIZAR UNIVERSAL */
-function finalizarPedido(){
-
-let carrinho=getCarrinho();
-
-if(carrinho.length===0){
-alert("Carrinho vazio");
-return;
-}
-
-let texto="🍧 NOVO PEDIDO%0A%0A";
-
-carrinho.forEach(i=>{
-texto += i.nome + "%0A";
-});
-
-texto += "%0A💰 TOTAL DE ITENS: " + carrinho.length;
-
-window.open(
-"https://wa.me/5588999031455?text="+texto,
-"_blank"
-);
-}
-
-/* 📸 IMAGEM */
-function baixarImagem(){
-html2canvas(document.querySelector("#ticket")).then(canvas=>{
-let link=document.createElement("a");
-link.download="pedido-acai.png";
-link.href=canvas.toDataURL();
-link.click();
-});
-}
-
 </script>
 
 </body>
-</html></html></html></html>
+</html></html></html></html></html>
