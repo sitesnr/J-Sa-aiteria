@@ -278,12 +278,27 @@ texto+="%0A";
 
 texto+="%0A💰 TOTAL: R$ "+total.toFixed(2);
 
-window.open("https://wa.me/5588999031455?text="+texto,"_blank");
+window.open(
+"https://wa.me/5588999031455?text="+texto,
+"_blank"
+);
+
+localStorage.removeItem("carrinho");
+renderCarrinho();
+
+document.querySelectorAll("input").forEach(input=>{
+if(input.type==="checkbox" || input.type==="radio"){
+input.checked=false;
+}
+});
+
+document.getElementById("valorAcai").value="";
+
+alert("Pedido enviado com sucesso!");
 }
 
 window.onload=renderCarrinho;
-
 </script>
 
 </body>
-</html></html></html></html></html></html>
+</html>
