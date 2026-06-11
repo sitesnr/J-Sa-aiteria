@@ -182,9 +182,13 @@ texto += `%0A💰 *TOTAL: R$ ${total.toFixed(2)}*`;
 let numero = "5588999031455";
 
 window.open(`https://wa.me/${numero}?text=${texto}`, "_blank");
-}
 
+/* LIMPA O CARRINHO APÓS ENVIAR */
+localStorage.removeItem("carrinho");
 render();
+
+alert("Pedido enviado com sucesso!");
+}
 
 </script>
 
