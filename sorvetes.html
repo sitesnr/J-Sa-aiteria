@@ -125,6 +125,11 @@ cursor:pointer;
 <button class="botao" onclick="adicionarCarrinho()">
 ➕ ADICIONAR AO CARRINHO
 </button>
+  
+<button class="botao" onclick="finalizarPedido()">
+FINALIZAR PEDIDO
+</button>
+  
 </div>
 
 </div>
@@ -201,9 +206,53 @@ salvarCarrinho(c);
 renderCarrinho();
 }
 
-window.onload=renderCarrinho;
+/* FINALIZAR */
+function finalizarPedido(){
 
+let carrinho=getCarrinho();
+
+if(carrinho.length===0){
+alert("Carrinho vazio");
+return;
+}
+
+let texto="🛒 NOVO PEDIDO%0A%0A";
+let total=0;
+
+carrinho.forEach(i=>{
+texto+=i.nome;
+
+if(i.preco){
+texto+=" - R$ "+i.preco.toFixed(2);
+total+=i.preco;
+}
+
+texto+="%0A";
+});
+
+texto+="%0A💰 TOTAL: R$ "+total.toFixed(2);
+
+window.open(
+"https://wa.me/5588999031455?text="+texto,
+"_blank"
+);
+
+localStorage.removeItem("carrinho");
+renderCarrinho();
+
+document.querySelectorAll("input").forEach(input=>{
+if(input.type==="checkbox"){
+input.checked=false;
+}
+});
+
+document.getElementById("valorSorvete").value="";
+
+alert("Pedido enviado com sucesso!");
+}
+
+window.onload=renderCarrinho;
 </script>
 
 </body>
-</html></html></html>
+</html>
