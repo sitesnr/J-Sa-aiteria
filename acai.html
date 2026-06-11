@@ -165,6 +165,8 @@ color:#5B178A;
 
 <script>
 
+/* ================= CARRINHO UNIVERSAL ================= */
+
 function getCarrinho(){
 return JSON.parse(localStorage.getItem("carrinho")) || [];
 }
@@ -173,6 +175,7 @@ function salvarCarrinho(c){
 localStorage.setItem("carrinho", JSON.stringify(c));
 }
 
+/* 🍧 ADICIONAR PADRÃO UNIVERSAL */
 function adicionarCarrinho(){
 
 let tamanho=document.querySelector('input[name="tamanho"]:checked');
@@ -183,21 +186,32 @@ alert("Escolha tamanho e base");
 return;
 }
 
-let ingredientes=[...document.querySelectorAll('input[type="checkbox"]:checked')].map(i=>i.value);
+let ingredientes=[...document.querySelectorAll('input[type="checkbox"]:checked')]
+.map(i=>i.value);
 
-let item = `🍧 Açaí ${tamanho.value} - ${base.value} - ${ingredientes.join(", ")}`;
+let nome = `🍧 Açaí ${tamanho.value} - ${base.value} - ${ingredientes.join(", ")}`;
 
-let carrinho=getCarrinho();
+let item = {
+nome: nome,
+preco: 0
+};
+
+let carrinho = getCarrinho();
 carrinho.push(item);
-salvarCarrinho(carrinho);
 
+salvarCarrinho(carrinho);
 renderCarrinho();
-alert("Adicionado!");
+
+alert("Adicionado ao carrinho!");
 }
 
+/* 🛒 RENDER */
 function renderCarrinho(){
+
 let carrinho=getCarrinho();
 let div=document.getElementById("carrinho");
+
+if(!div) return;
 
 if(carrinho.length===0){
 div.innerHTML="Vazio";
@@ -209,13 +223,14 @@ div.innerHTML="";
 carrinho.forEach((item,i)=>{
 div.innerHTML+=`
 <div class="itemCarrinho">
-<span>${item}</span>
+<span>${item.nome}</span>
 <button class="remover" onclick="remover(${i})">X</button>
 </div>
 `;
 });
 }
 
+/* ❌ REMOVER */
 function remover(i){
 let c=getCarrinho();
 c.splice(i,1);
@@ -225,7 +240,9 @@ renderCarrinho();
 
 window.onload=renderCarrinho;
 
+/* 🧾 FINALIZAR UNIVERSAL */
 function finalizarPedido(){
+
 let carrinho=getCarrinho();
 
 if(carrinho.length===0){
@@ -233,26 +250,21 @@ alert("Carrinho vazio");
 return;
 }
 
-document.getElementById("conteudoTicket").innerHTML =
-carrinho.map(i=>"• "+i).join("<br>");
-
-document.getElementById("totalTicket").innerText =
-"Total: "+carrinho.length+" itens";
-
-document.getElementById("ticketArea").style.display="block";
-}
-
-function enviarWhatsApp(){
-let carrinho=getCarrinho();
-
 let texto="🍧 NOVO PEDIDO%0A%0A";
-texto+=carrinho.join("%0A");
-texto+="%0A%0ATotal: "+carrinho.length;
 
-window.open("https://wa.me/5588999031455?text="+texto,"_blank");
+carrinho.forEach(i=>{
+texto += i.nome + "%0A";
+});
+
+texto += "%0A💰 TOTAL DE ITENS: " + carrinho.length;
+
+window.open(
+"https://wa.me/5588999031455?text="+texto,
+"_blank"
+);
 }
 
-/* 📸 DOWNLOAD DA IMAGEM CORRIGIDO */
+/* 📸 IMAGEM */
 function baixarImagem(){
 html2canvas(document.querySelector("#ticket")).then(canvas=>{
 let link=document.createElement("a");
@@ -265,5 +277,4 @@ link.click();
 </script>
 
 </body>
-</html></body>
-</html></html></html>
+</html></html></html></html>
