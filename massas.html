@@ -264,21 +264,20 @@ total+=i.preco;
 
 texto+=`%0ATOTAL: R$ ${total.toFixed(2)}`;
 
+/* LIMPA PRIMEIRO */
+localStorage.removeItem("carrinho");
+renderCarrinho();
+
+/* DESMARCA TUDO */
+document.querySelectorAll("input").forEach(input=>{
+input.checked=false;
+});
+
+/* ABRE O WHATSAPP */
 window.open(
 "https://wa.me/5588999031455?text="+texto,
 "_blank"
 );
-
-/* LIMPA O CARRINHO */
-localStorage.removeItem("carrinho");
-renderCarrinho();
-
-/* DESMARCA TODOS OS CHECKBOX E RADIO */
-document.querySelectorAll("input").forEach(input=>{
-if(input.type==="checkbox" || input.type==="radio"){
-input.checked=false;
-}
-});
 
 alert("Pedido enviado com sucesso!");
 }
