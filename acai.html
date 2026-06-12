@@ -260,10 +260,10 @@ div.innerHTML+=`
 }
 
 /* REMOVER */
-function remover(i){
-let c=getCarrinho();
-c.splice(i,1);
-salvarCarrinho(c);
+function remover(index){
+let carrinho = getCarrinho();
+carrinho.splice(index,1);
+salvarCarrinho(carrinho);
 renderCarrinho();
 }
 
@@ -312,7 +312,8 @@ document.getElementById("valorAcai").value="";
 alert("Pedido enviado com sucesso!");
 }
 
-window.onload=renderCarrinho;
+/* ÚNICO window.onload (já existente no seu código) */
+window.onload = renderCarrinho;
 </script>
 
 </body>
